@@ -12,13 +12,12 @@ namespace Inferno_Cascade
 
         private void OnCollisionEnter(Collision collision)
         {
-            //send info to interface
             int size = Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
             for (int i = 0; i < size; i++)
             {
                 var go = colliders[i].gameObject;
                 go.GetComponent<IForceReciever>()?.AddForceFromPosition(transform.position, spelltype);
-                
+
                 //following is what tutorial used
 
             }

@@ -1,14 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Inferno_Cascade
 {
-
-    public interface IForceReciever
-    {
-        public void AddForceFromPosition(Vector3 explosionOrigin, SpellType spelltype);
-    }
     public class ForceReciever : MonoBehaviour, IForceReciever
     {
         [SerializeField] float forceStrength;
