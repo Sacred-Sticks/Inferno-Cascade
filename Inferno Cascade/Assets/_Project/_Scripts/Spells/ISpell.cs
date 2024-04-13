@@ -4,25 +4,14 @@ namespace Inferno_Cascade
 {
     public interface ISpell
     {
-        public static void BeginSpell(ISpell spell, Rigidbody body = null)
-        {
-            if (spell.RequiresBody)
-            {
-                spell.BeginSpell(body);
-                return;
-            }
-            spell.BeginSpell();
-        }
-        public bool RequiresBody { get; }
+        /// <summary>
+        /// Called to begin or activate the spell
+        /// </summary>
+        public void BeginSpell();
 
-        public void BeginSpell()
-        {
-
-        }
-        public void BeginSpell(Rigidbody body)
-        {
-
-        }
+        /// <summary>
+        /// Called to end the spell (only implement when necessary)
+        /// </summary>
         public void EndSpell()
         {
 
@@ -37,11 +26,21 @@ namespace Inferno_Cascade
         }
 
         public string Name { get; }
-        public bool RequiresBody => false;
 
         public void BeginSpell()
         {
+            // if you need to use a Rigidbody, you can get it from the Registry like so...
+            // you can declare it as Rigidbody if you want, I just use var for brevity, it looks cleaner to me
+            // commented out because the rigidbody isn't registered yet, so it would throw an error
             Debug.Log($"{Name} Used");
+            // var body = Registry.Get<Rigidbody>(RegistryStrings.PlayerRigidbody);
+            // Rigidbody rb = Registry.Get<Rigidbody>(RegistryStrings.PlayerRigidbody);
+        }
+
+        public void EndSpell()
+        {
+            // Only implement EndSpell if you need to do something when the spell ends
+            Debug.Log($"{Name} Ended");
         }
     }
 }

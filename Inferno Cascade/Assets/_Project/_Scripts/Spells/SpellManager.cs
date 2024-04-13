@@ -80,18 +80,20 @@ namespace Inferno_Cascade
 
         private void OnUseWaterSpellInputChange(float input)
         {
-            if (input == 0)
-                ISpell.BeginSpell(waterSpells[waterSpellIndex]);
-            else
-                waterSpells[waterSpellIndex].EndSpell();
+            var spell = waterSpells[waterSpellIndex];
+            if (input == 1)
+                spell.BeginSpell();
+            else if (input == 0)
+                spell.EndSpell();
         }
 
         private void OnUseFireSpellInputChange(float input)
         {
-            if (input == 0)
-                ISpell.BeginSpell(fireSpells[fireSpellIndex]);
-            else
-                fireSpells[fireSpellIndex].EndSpell();
+            var spell = fireSpells[fireSpellIndex];
+            if (input == 1)
+                spell.BeginSpell();
+            else if (input == 0)
+                spell.EndSpell();
         }
         #endregion
 
