@@ -60,7 +60,7 @@ namespace Inferno_Cascade
                 .Build());
 
             actions.Add(new AgentAction.Builder("AttackPlayer")
-                .WithStrategy(new AttackStrategy())
+                .WithStrategy(new AttackStrategy(attackSensor.Target))
                 .AddPrecondition(beliefs["PlayerInAttackRange"])
                 .AddEffect(beliefs["AttackingPlayer"])
                 .Build());

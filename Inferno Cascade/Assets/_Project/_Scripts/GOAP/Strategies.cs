@@ -80,12 +80,31 @@ namespace Inferno_Cascade
         public bool CanPerform => true;
         public bool Complete { get; private set; }
 
-        public AttackStrategy()
+        public AttackStrategy(GameObject target)
         {
-            
+            // Initialize the health component of the target
         }
 
-        
+        private CountdownTimer timer;
+
+        public void Start()
+        {
+            timer = new CountdownTimer(2);
+            timer.OnTimerStop += () =>
+            {
+                AttackTarget();
+                timer.Start();
+            };
+            timer.Start();
+        }
+
+        public void Update(float deltaTime)
+            => timer.Tick(deltaTime);
+
+        private void AttackTarget()
+        {
+            // Attack the target
+        }
     }
 
     public class HealStrategy : IActionStrategy
@@ -93,11 +112,30 @@ namespace Inferno_Cascade
         public bool CanPerform => true;
         public bool Complete { get; private set; }
 
-        public HealStrategy()
+        public HealStrategy(GameObject healTarget)
         {
-            
+            // Initialize the health component of the target
         }
 
-        
+        private CountdownTimer timer;
+
+        public void Start()
+        {
+            timer = new CountdownTimer(2);
+            timer.OnTimerStop += () =>
+            {
+                HealTarget();
+                timer.Start();
+            };
+            timer.Start();
+        }
+
+        public void Update(float deltaTime)
+            => timer.Tick(deltaTime);
+
+        private void HealTarget()
+        {
+            // Heal the target
+        }
     }
 }

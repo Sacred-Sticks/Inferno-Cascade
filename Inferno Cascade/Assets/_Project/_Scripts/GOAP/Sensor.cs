@@ -14,10 +14,10 @@ namespace Inferno_Cascade
 
         public event Action OnTargetChanged = delegate { };
 
-        public Vector3 TargetPosition => target ? target.transform.position : Vector3.zero;
+        public Vector3 TargetPosition => Target ? Target.transform.position : Vector3.zero;
         public bool IsTargetInRange => TargetPosition != Vector3.zero;
 
-        GameObject target;
+        public GameObject Target { get; private set; }
         Vector3 lastKnownPosition;
         CountdownTimer timer;
 
@@ -33,7 +33,7 @@ namespace Inferno_Cascade
         {
             timer = new CountdownTimer(timerInterval);
             timer.OnTimerStop += () => {
-                UpdateTargetPosition(target.OrNull());
+                UpdateTargetPosition(Target.OrNull());
                 timer.Start();
             };
             timer.Start();
@@ -67,7 +67,7 @@ namespace Inferno_Cascade
 
         void UpdateTargetPosition(GameObject target = null)
         {
-            this.target = target;
+            this.Target = target;
             if (IsTargetInRange && (lastKnownPosition != TargetPosition || lastKnownPosition != Vector3.zero))
             {
                 lastKnownPosition = TargetPosition;
