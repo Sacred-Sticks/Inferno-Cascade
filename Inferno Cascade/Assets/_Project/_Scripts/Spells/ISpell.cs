@@ -43,4 +43,30 @@ namespace Inferno_Cascade
             Debug.Log($"{Name} Ended");
         }
     }
+
+    public struct FireBall : ISpell
+    {
+        private static float offsetAmount = 0.5f;
+
+        public void BeginSpell()
+        {
+            Transform camTran = Camera.main.transform;
+            Vector3 oofset = camTran.forward * offsetAmount; 
+            GameObject fb = Resources.Load<GameObject>("Prefabs/SpellPrefabs/FireBall");
+            var ball = Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
+        }
+    }
+
+    public struct WaterJet : ISpell
+    {
+        private static float offsetAmount = 0.5f;
+        public void BeginSpell()
+        {
+            Transform camTran = Camera.main.transform;
+            Vector3 oofset = camTran.forward * offsetAmount;
+            GameObject fb = Resources.Load<GameObject>("Prefabs/SpellPrefabs/WaterJet");
+            var ball = Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
+        }
+    }
+
 }

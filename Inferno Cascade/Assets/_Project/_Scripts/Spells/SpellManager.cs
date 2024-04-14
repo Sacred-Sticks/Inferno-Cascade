@@ -24,15 +24,15 @@ namespace Inferno_Cascade
         {
             waterSpells = new ISpell[]
             {
+                new WaterJet(),
                 new ExampleSpell("Heal Spell"),
                 new ExampleSpell("Water Shield"),
-                new ExampleSpell("Water Jet"),
             };
             waterSpellCount = waterSpells.Length;
             waterSpellIndex = 0;
             fireSpells = new ISpell[]
             {
-                new ExampleSpell("Fireball"),
+                new FireBall(),
                 new ExampleSpell("Fire Rune"),
                 new ExampleSpell("Fire Javelin"),
             };
