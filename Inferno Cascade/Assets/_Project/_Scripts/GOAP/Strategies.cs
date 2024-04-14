@@ -95,4 +95,17 @@ namespace Inferno_Cascade
         public void Stop()
             => agent.ResetPath();
     }
+
+    public class AttackStrategy : IActionStrategy
+    {
+        public bool CanPerform => true;
+        public bool Complete { get; private set; }
+
+        public AttackStrategy()
+        {
+            
+        }
+
+        
+    }
 }

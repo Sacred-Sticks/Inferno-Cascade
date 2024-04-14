@@ -46,7 +46,9 @@ namespace Inferno_Cascade
 
         private bool FindPath(Node parent, HashSet<AgentAction> actions)
         {
-            foreach (var action in actions)
+            var orderedActions = actions.OrderBy(a => a.Cost);
+
+            foreach (var action in orderedActions)
             {
                 var requiredEffects = parent.RequiredEffects;
 

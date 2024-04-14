@@ -15,6 +15,7 @@ namespace Inferno_Cascade
         private Func<bool> condition = () => false;
         private Func<Vector3> observedLocation = () => Vector3.zero;
         
+        public Vector3 Location => observedLocation();
         public bool Evaluate() => condition();
 
         public class Builder

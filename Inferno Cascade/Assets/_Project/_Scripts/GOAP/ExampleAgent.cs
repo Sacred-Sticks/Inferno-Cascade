@@ -34,19 +34,23 @@ namespace Inferno_Cascade
         protected override void SetupBeliefs()
         {
             beliefs = new Dictionary<string, AgentBelief>();
-            var factory = new BeliefFactory(this, beliefs);
+            BeliefFactory factory = new BeliefFactory(this, beliefs);
 
             factory.AddBelief("Nothing", () => false);
+
             factory.AddBelief("AgentIdle", () => !navMeshAgent.hasPath);
             factory.AddBelief("AgentMoving", () => navMeshAgent.hasPath);
-            factory.AddBelief("LowHealth", () => health < 30f);
-            factory.AddBelief("Healthy", () => health > 50f);
-            factory.AddBelief("LowStamina", () => stamina < 20f);
-            factory.AddBelief("WellRested", () => stamina > 50f);
+            factory.AddBelief("AgentHealthLow", () => health < 30);
+            factory.AddBelief("AgentIsHealthy", () => health >= 50);
+            factory.AddBelief("AgentStaminaLow", () => stamina < 10);
+            factory.AddBelief("AgentIsRested", () => stamina >= 50);
 
-            factory.AddLocationBelief("AtHealingStation", 1f, healingStation.position);
-            factory.AddLocationBelief("AtRestingStation", 1f, restingStation.position);
-            factory.AddBelief("AttackingPlayer", () => false); // Always can attack player
+            factory.AddLocationBelief("AgentAtRestingPosition", 3f, restingStation);
+            factory.AddLocationBelief("AgentAtHealingPosition", 3f, healingStation);
+
+            factory.AddSensorBelief("PlayerInChaseRange", chaseSensor);
+            factory.AddSensorBelief("PlayerInAttackRange", attackSensor);
+            factory.AddBelief("AttackingPlayer", () => false); // Player can always be attacked, this will never become true
         }
 
         protected override void SetupActions()
@@ -58,39 +62,81 @@ namespace Inferno_Cascade
                 .AddEffect(beliefs["Nothing"])
                 .Build());
 
-            actions.Add(new AgentAction.Builder("Wander")
+            actions.Add(new AgentAction.Builder("Wander Around")
                 .WithStrategy(new WanderStrategy(navMeshAgent, 10))
                 .AddEffect(beliefs["AgentMoving"])
                 .Build());
 
-            actions.Add(new AgentAction.Builder("MoveToHealingStation")
+            actions.Add(new AgentAction.Builder("MoveToEatingPosition")
                 .WithStrategy(new MoveStrategy(navMeshAgent, () => healingStation.position))
-                .AddEffect(beliefs["AtHealingStation"])
+                .AddEffect(beliefs["AgentAtFoodShack"])
                 .Build());
 
-            actions.Add(new AgentAction.Builder("Healing")
-                .WithStrategy(new IdleStrategy(2))
-                .AddEffect(beliefs["Healthy"])
-                .AddPrecondition(beliefs["AtHealingStation"])
+            actions.Add(new AgentAction.Builder("Eat")
+                .WithStrategy(new IdleStrategy(5))  // Later replace with a Command
+                .AddPrecondition(beliefs["AgentAtFoodShack"])
+                .AddEffect(beliefs["AgentIsHealthy"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("MoveFromDoorOneToRestArea")
+                .WithCost(2)
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => restingStation.position))
+                .AddPrecondition(beliefs["AgentAtDoorOne"])
+                .AddEffect(beliefs["AgentAtRestingPosition"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("MoveFromDoorTwoRestArea")
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => restingStation.position))
+                .AddPrecondition(beliefs["AgentAtDoorTwo"])
+                .AddEffect(beliefs["AgentAtRestingPosition"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("Rest")
+                .WithStrategy(new IdleStrategy(5))
+                .AddPrecondition(beliefs["AgentAtRestingPosition"])
+                .AddEffect(beliefs["AgentIsRested"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("ChasePlayer")
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["PlayerInChaseRange"].Location))
+                .AddPrecondition(beliefs["PlayerInChaseRange"])
+                .AddEffect(beliefs["PlayerInAttackRange"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("AttackPlayer")
+                .WithStrategy(new AttackStrategy())
+                .AddPrecondition(beliefs["PlayerInAttackRange"])
+                .AddEffect(beliefs["AttackingPlayer"])
                 .Build());
         }
 
         protected override void SetupGoals()
         {
             goals = new HashSet<AgentGoal>();
-            goals.Add(new AgentGoal.Builder("Rest")
-                 .WithPriority(1)
-                 .WithDesiredEffect(beliefs["Nothing"])
-            .Build());
+
+            goals.Add(new AgentGoal.Builder("Chill Out")
+                .WithPriority(1)
+                .WithDesiredEffect(beliefs["Nothing"])
+                .Build());
 
             goals.Add(new AgentGoal.Builder("Wander")
                 .WithPriority(1)
                 .WithDesiredEffect(beliefs["AgentMoving"])
-            .Build());
+                .Build());
 
             goals.Add(new AgentGoal.Builder("KeepHealthUp")
                 .WithPriority(2)
-                .WithDesiredEffect(beliefs["Healthy"])
+                .WithDesiredEffect(beliefs["AgentIsHealthy"])
+                .Build());
+
+            goals.Add(new AgentGoal.Builder("KeepStaminaUp")
+                .WithPriority(2)
+                .WithDesiredEffect(beliefs["AgentIsRested"])
+                .Build());
+
+            goals.Add(new AgentGoal.Builder("SeekAndDestroy")
+                .WithPriority(3)
+                .WithDesiredEffect(beliefs["AttackingPlayer"])
                 .Build());
         }
         #endregion
@@ -98,10 +144,10 @@ namespace Inferno_Cascade
         // TODO : Move this to stats system
         protected override void UpdateStats()
         {
-            health += InRangeOf(healingStation.position, 5f) ? 20f : -5f;
-            stamina += InRangeOf(restingStation.position, 5f) ? 20f : -1f;
-            health = Mathf.Clamp(health, 0f, 100f);
-            stamina = Mathf.Clamp(stamina, 0f, 100f);
+            health += InRangeOf(healingStation.position, 3f) ? 20 : -5;
+            health = Mathf.Clamp(health, 0, 100);
+            stamina += InRangeOf(restingStation.position, 3f) ? 20 : -10;
+            stamina = Mathf.Clamp(stamina, 0, 100);
         }
     }
 }

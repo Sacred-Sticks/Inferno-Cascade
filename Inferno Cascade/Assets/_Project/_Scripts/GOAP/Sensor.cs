@@ -3,59 +3,68 @@ using UnityEngine;
 
 namespace Inferno_Cascade
 {
-
     [RequireComponent(typeof(SphereCollider))]
     public class Sensor : MonoBehaviour
     {
-        [SerializeField] private float detectionRadius = 5f;
-        [SerializeField] private float timerInterval = 1f;
+        [SerializeField] float detectionRadius = 5f;
+        [SerializeField] float timerInterval = 1f;
 
-        private SphereCollider detectionRange;
+        SphereCollider detectionRange;
 
         public event Action OnTargetChanged = delegate { };
 
         public Vector3 TargetPosition => target ? target.transform.position : Vector3.zero;
         public bool IsTargetInRange => TargetPosition != Vector3.zero;
 
-        private GameObject target;
-        private Vector3 lastKnownPosition;
-        private CountdownTimer timer;
+        GameObject target;
+        Vector3 lastKnownPosition;
+        CountdownTimer timer;
 
         #region UnityEvents
-        private void Awake()
+        void Awake()
         {
             detectionRange = GetComponent<SphereCollider>();
             detectionRange.isTrigger = true;
             detectionRange.radius = detectionRadius;
         }
 
-        private void Start()
+        void Start()
         {
             timer = new CountdownTimer(timerInterval);
-            timer.OnTimerStop += () =>
-            {
+            timer.OnTimerStop += () => {
                 UpdateTargetPosition(target.OrNull());
                 timer.Start();
             };
             timer.Start();
         }
 
-        private void OnTriggerEnter(Collider other)
+        void Update()
         {
-            if (!other.CompareTag("Player")) 
+            timer.Tick(Time.deltaTime);
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (!other.CompareTag("Player"))
                 return;
             UpdateTargetPosition(other.gameObject);
         }
 
-        private void OnTriggerExit(Collider other)
+        void OnTriggerExit(Collider other)
         {
-            if (!other.CompareTag("Player")) 
+            if (!other.CompareTag("Player"))
                 return;
             UpdateTargetPosition();
         }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = IsTargetInRange ? Color.red : Color.green;
+            Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        }
         #endregion
 
-        private void UpdateTargetPosition(GameObject target = null)
+        void UpdateTargetPosition(GameObject target = null)
         {
             this.target = target;
             if (IsTargetInRange && (lastKnownPosition != TargetPosition || lastKnownPosition != Vector3.zero))

@@ -22,12 +22,12 @@ namespace Inferno_Cascade
                 .Build());
         }
 
-        public void AddSensoryBelief(string key, Sensor sensor)
+        public void AddSensorBelief(string key, Sensor sensor)
         {
             beliefs.Add(key, new AgentBelief.Builder(key)
-                   .WithCondition(() => sensor.IsTargetInRange)
-                   .WithLocation(() => sensor.TargetPosition)
-                   .Build());
+                .WithCondition(() => sensor.IsTargetInRange)
+                .WithLocation(() => sensor.TargetPosition)
+                .Build());
         }
 
         public void AddLocationBelief(string key, float distance, Vector3 position)

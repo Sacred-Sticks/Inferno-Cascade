@@ -47,7 +47,6 @@ namespace Inferno_Cascade
 
             if (currentAction == null)
             {
-                Debug.Log("Calculating a new action plan");
                 CalculatePlan();
 
                 if (actionPlan != null && actionPlan.Actions.Count > 0)
@@ -56,7 +55,13 @@ namespace Inferno_Cascade
 
                     currentGoal = actionPlan.AgentGoal;
                     currentAction = actionPlan.Actions.Pop();
-                    currentAction.Start();
+                    if (currentAction.Preconditions.All(b => b.Evaluate()))
+                        currentAction.Start();
+                    else
+                    {
+                        currentAction = null;
+                        currentGoal = null;
+                    }
                 }
             }
 
