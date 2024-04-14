@@ -134,10 +134,9 @@ GameObject:
   - component: {fileID: 44486702}
   - component: {fileID: 44486705}
   - component: {fileID: 44486704}
-  - component: {fileID: 44486703}
   m_Layer: 0
   m_Name: Visual
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,29 +156,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1753657779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &44486703
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44486701}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &44486704
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -243,7 +219,7 @@ GameObject:
   - component: {fileID: 69200582}
   m_Layer: 0
   m_Name: Follow Sensor
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,7 +350,7 @@ GameObject:
   - component: {fileID: 809557156}
   m_Layer: 0
   m_Name: Healing Sensor
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -430,6 +406,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1354161164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &833160846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 833160847}
+  m_Layer: 0
+  m_Name: Safe Spot 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &833160847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833160846}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -18.4, y: 0, z: 13.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032856315
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +450,7 @@ GameObject:
   - component: {fileID: 1032856317}
   m_Layer: 0
   m_Name: Attack Sensor
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -785,6 +792,7 @@ GameObject:
   - component: {fileID: 1354161164}
   - component: {fileID: 1354161163}
   - component: {fileID: 1354161162}
+  - component: {fileID: 1354161165}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Enemy
@@ -806,7 +814,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healSensor: {fileID: 809557156}
   chaseSensor: {fileID: 69200582}
-  safePositions: []
+  safePositions:
+  - {fileID: 833160847}
+  - {fileID: 1358222775}
 --- !u!195 &1354161163
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -838,13 +848,67 @@ Transform:
   m_GameObject: {fileID: 1354161161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.08, y: 0, z: -11.07}
+  m_LocalPosition: {x: 14.5, y: 0, z: -14.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 69200584}
   - {fileID: 809557158}
   - {fileID: 2104453171}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1354161165
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354161161}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!1 &1358222774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1358222775}
+  m_Layer: 0
+  m_Name: Safe Spot 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1358222775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358222774}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.8, y: 0, z: -18.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1753657776
@@ -858,6 +922,7 @@ GameObject:
   - component: {fileID: 1753657779}
   - component: {fileID: 1753657778}
   - component: {fileID: 1753657780}
+  - component: {fileID: 1753657781}
   m_Layer: 0
   m_Name: Roamer
   m_TagString: Enemy
@@ -919,6 +984,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseSensor: {fileID: 1876461006}
   attackSensor: {fileID: 1032856317}
+--- !u!136 &1753657781
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753657776}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1876461004
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,7 +1020,7 @@ GameObject:
   - component: {fileID: 1876461006}
   m_Layer: 0
   m_Name: Chase Sensor
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -999,10 +1087,9 @@ GameObject:
   - component: {fileID: 2104453171}
   - component: {fileID: 2104453174}
   - component: {fileID: 2104453173}
-  - component: {fileID: 2104453172}
   m_Layer: 0
   m_Name: Visual
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1022,29 +1109,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1354161164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2104453172
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2104453170}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2104453173
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1105,3 +1169,5 @@ SceneRoots:
   - {fileID: 579621095}
   - {fileID: 752110693}
   - {fileID: 1334144419}
+  - {fileID: 833160847}
+  - {fileID: 1358222775}

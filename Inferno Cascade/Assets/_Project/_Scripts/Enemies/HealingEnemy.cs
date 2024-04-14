@@ -33,8 +33,6 @@ namespace Inferno_Cascade
             var factory = new BeliefFactory(this, beliefs);
 
             factory.AddBelief("Nothing", () => false);
-            factory.AddBelief("AgentIdle", () => !navMeshAgent.hasPath);
-            factory.AddBelief("AgentMoving", () => navMeshAgent.hasPath);
             factory.AddBelief("SafeFromHarm", () => false);
 
             factory.AddSensorBelief("EnemyInChaseRange", chaseSensor);
@@ -49,12 +47,6 @@ namespace Inferno_Cascade
             actions.Add(new AgentAction.Builder("No Movement")
                 .WithStrategy(new IdleStrategy(5))
                 .AddEffect(beliefs["Nothing"])
-                .Build());
-
-            actions.Add(new AgentAction.Builder("Move to random point within a radius")
-                .WithStrategy(new WanderStrategy(navMeshAgent, 10))
-                .WithCost(2)
-                .AddEffect(beliefs["AgentMoving"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("Go To Safety")
@@ -80,18 +72,13 @@ namespace Inferno_Cascade
             goals = new HashSet<AgentGoal>();
 
             goals.Add(new AgentGoal.Builder("Don't Move")
-                 .WithPriority(1)
+                 .WithPriority(2)
                  .WithDesiredEffect(beliefs["Nothing"])
                  .Build());
 
-            goals.Add(new AgentGoal.Builder("Move Randomly")
-                .WithPriority(0)
-                .WithDesiredEffect(beliefs["AgentMoving"])
-                .Build());
-
             goals.Add(new AgentGoal.Builder("Go to a Safe Area")
                 .WithPriority(2)
-                .WithDesiredEffect(beliefs["EnemyInHealRange"])
+                .WithDesiredEffect(beliefs["SafeFromHarm"])
                 .Build());
 
             goals.Add(new AgentGoal.Builder("Seek and Heal Enemies")

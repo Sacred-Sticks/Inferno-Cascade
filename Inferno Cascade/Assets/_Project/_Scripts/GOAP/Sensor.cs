@@ -67,7 +67,7 @@ namespace Inferno_Cascade
 
         void UpdateTargetPosition(GameObject target = null)
         {
-            this.Target = target;
+            Target = target;
             if (IsTargetInRange && (lastKnownPosition != TargetPosition || lastKnownPosition != Vector3.zero))
             {
                 lastKnownPosition = TargetPosition;

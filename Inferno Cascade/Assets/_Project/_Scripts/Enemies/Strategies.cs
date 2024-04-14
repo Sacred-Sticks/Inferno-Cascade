@@ -131,7 +131,11 @@ namespace Inferno_Cascade
         }
 
         public void Update(float deltaTime)
-            => timer.Tick(deltaTime);
+        {
+            timer.Tick(deltaTime);
+
+            // if target is null, complete
+        }
 
         private void HealTarget()
         {
