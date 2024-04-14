@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Inferno_Cascade
 {
+    /*
     public class ExampleAgent : GoapAgent
     {
         [Header("Sensors")]
@@ -150,4 +151,5 @@ namespace Inferno_Cascade
             stamina = Mathf.Clamp(stamina, 0, 100);
         }
     }
+    */
 }
