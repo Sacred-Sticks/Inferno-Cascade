@@ -36,6 +36,7 @@ namespace Inferno_Cascade
 
             factory.AddSensorBelief("PlayerInChaseRange", chaseSensor);
             factory.AddSensorBelief("PlayerInAttackRange", attackSensor);
+            factory.AddBelief("AttackingPlayer", () => false);
         }
 
         protected override void SetupActions()
@@ -60,7 +61,7 @@ namespace Inferno_Cascade
                 .Build());
 
             actions.Add(new AgentAction.Builder("AttackPlayer")
-                .WithStrategy(new AttackStrategy(attackSensor.Target))
+                .WithStrategy(new CautiousAttackStrategy(() => attackSensor.Target))
                 .AddPrecondition(beliefs["PlayerInAttackRange"])
                 .AddEffect(beliefs["AttackingPlayer"])
                 .Build());

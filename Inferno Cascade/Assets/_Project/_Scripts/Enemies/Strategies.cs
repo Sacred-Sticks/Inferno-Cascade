@@ -82,8 +82,11 @@ namespace Inferno_Cascade
         public bool CanPerform => true;
         public bool Complete { get; private set; }
 
-        public AttackStrategy(GameObject target)
+        Func<GameObject> target;
+
+        public AttackStrategy(Func<GameObject> getTarget)
         {
+            target = getTarget;
             // Initialize the health component of the target
         }
 
@@ -101,7 +104,56 @@ namespace Inferno_Cascade
         }
 
         public void Update(float deltaTime)
-            => timer.Tick(deltaTime);
+        {
+            timer.Tick(deltaTime);
+
+            var target = this.target();
+
+            if (target == null)
+                Complete = true;
+        }
+
+        private void AttackTarget()
+        {
+            // Attack the target
+        }
+    }
+
+    public class CautiousAttackStrategy : IActionStrategy
+    {
+        public bool CanPerform => true;
+        public bool Complete { get; private set; }
+
+        Func<GameObject> target;
+
+        public CautiousAttackStrategy(Func<GameObject> getTarget)
+        {
+            target = getTarget;
+            // Initialize the health component of the target
+        }
+
+        private CountdownTimer timer;
+
+        public void Start()
+        {
+            timer = new CountdownTimer(2);
+            timer.OnTimerStop += () =>
+            {
+                AttackTarget();
+                timer.Start();
+            };
+            timer.Start();
+        }
+
+        public void Update(float deltaTime)
+        {
+            timer.Tick(deltaTime);
+
+            var target = this.target();
+
+            if (target == null /* OR if agent health is too low */)
+                Complete = true;
+        }
 
         private void AttackTarget()
         {
