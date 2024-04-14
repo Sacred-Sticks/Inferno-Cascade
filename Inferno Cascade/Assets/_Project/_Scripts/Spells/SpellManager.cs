@@ -24,9 +24,9 @@ namespace Inferno_Cascade
         {
             waterSpells = new ISpell[]
             {
+                new WaterJet(),
                 new ExampleSpell("Heal Spell"),
                 new ExampleSpell("Water Shield"),
-                new ExampleSpell("Water Jet"),
             };
             waterSpellCount = waterSpells.Length;
             waterSpellIndex = 0;

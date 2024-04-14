@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Inferno_Cascade
 {
-    public class FireBallProjectile : MonoBehaviour
+    public class Projectile : MonoBehaviour
     {
         [SerializeField] float Speed;
         void Start()
