@@ -40,7 +40,6 @@ namespace Inferno_Cascade
                 }
             }
 
-            UnityEngine.Debug.LogWarning("No Plan Found");
             return null;
         }
 
