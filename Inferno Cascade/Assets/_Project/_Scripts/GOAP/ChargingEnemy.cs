@@ -88,11 +88,11 @@ namespace Inferno_Cascade
                 .WithDesiredEffect(beliefs["AttackingPlayer"])
                 .Build());
         }
-        #endregion
 
         protected override void UpdateStats()
         {
             // noop
         }
+        #endregion
     }
 }
