@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Kickstarter.DependencyInjection;
 
 namespace Inferno_Cascade
 {
-    public class hpLocator : MonoBehaviour
+    public class hpLocator : MonoBehaviour, IDependencyProvider
     {
-        // Start is called before the first frame update
-        void Start()
+        private Image hpBar;
+        [Provide] hpLocator hpLoC => this;
+
+        public void Start()
         {
-        
+            hpBar = GetComponent<Image>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetHPBar(float hp, float MaxHp)
         {
-        
+            hpBar.fillAmount = hp / MaxHp;
         }
     }
 }

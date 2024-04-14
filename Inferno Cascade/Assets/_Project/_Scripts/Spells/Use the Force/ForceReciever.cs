@@ -14,30 +14,43 @@ namespace Inferno_Cascade
 
         public void AddForceFromPosition(Vector3 explosionOrigin, SpellManager.SpellType spelltype)
         {
-            float forceStrength = 0;
-
-            if (spelltype == SpellManager.SpellType.Fire)
+            switch (spelltype)
             {
-                //doing this because only fire do damage
-                float dist = Vector3.Distance(explosionOrigin, this.transform.position);
-                //temp damage me tired
-                float amount = -5;
-                GetComponent<Health>().changeHealth(amount);
-
-                //set force
-                forceStrength = FireForce;
+                case SpellManager.SpellType.Fire:
+                    FireCalculation(explosionOrigin);
+                    break;
+                case SpellManager.SpellType.Water:
+                    WaterCalculation();
+                    break;
+                default:
+                    throw new System.NotImplementedException();
             }
-            else if(spelltype == SpellManager.SpellType.Water)
-            {
-                forceStrength = WaterForce;
-            }
-
-            Vector3 direction = (transform.position - explosionOrigin).normalized;
-            
-            rb.AddForce(direction * forceStrength, ForceMode.Force);
-
             
             //water just push no need for damage calc
+        }
+
+        private void FireCalculation(Vector3 explosionOrigin)
+        {
+            //doing this because only fire do damage
+            float dist = Vector3.Distance(explosionOrigin, this.transform.position);
+            //temp damage me tired
+            float amount = -5;
+            GetComponent<Health>().changeHealth(amount);
+
+            Vector3 direction = (transform.position - explosionOrigin).normalized;
+            AddForce(direction, FireForce);
+        }
+
+        private void WaterCalculation()
+        {
+            var playerBody = Registry.Get<Rigidbody>(RegistryStrings.PlayerRigidbody);
+            var direction = transform.position - playerBody.position;
+            AddForce(direction, WaterForce);
+        }
+
+        private void AddForce(Vector3 direction, float forceStrength)
+        {
+            rb.AddForce(direction * forceStrength, ForceMode.Force);
         }
     }
 }

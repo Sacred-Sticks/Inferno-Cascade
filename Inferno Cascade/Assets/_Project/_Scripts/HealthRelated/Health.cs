@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Kickstarter.Observer;
 using UnityEngine.UI;
+using Kickstarter.DependencyInjection;
 
 namespace Inferno_Cascade
 {
@@ -13,18 +14,10 @@ namespace Inferno_Cascade
 
     public class Health : Observable
     {
-        [SerializeField] float hp,Maxhp;
-        [SerializeField] Image hpBar;
+        [SerializeField] float hp, Maxhp;
+        
         [SerializeField] bool IsPlayer;
-
-
-        public void Start()
-        {
-            if(IsPlayer)
-            {
-                hpBar=FindObjectOfType<hpLocator>().gameObject.GetComponent<Image>();
-            }
-        }
+        [Inject] private hpLocator hpLoc;
 
         public void changeHealth(float amount)
         {
@@ -32,7 +25,10 @@ namespace Inferno_Cascade
             if (hp > Maxhp) { hp = Maxhp; }
             NotifyObservers(new HealthChange(hp));
 
-            if(hpBar !=null) { hpBar.fillAmount = hp / Maxhp; }
+            if(IsPlayer)
+            {
+                hpLoc.SetHPBar(hp, Maxhp);
+            }
 
             if (hp <= 0)
             {
