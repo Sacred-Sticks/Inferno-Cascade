@@ -109,6 +109,10 @@ GameObject:
   - component: {fileID: 6856386803964363562}
   - component: {fileID: 2614724247240619949}
   - component: {fileID: 2275623064949998165}
+  - component: {fileID: 3599346450684544925}
+  - component: {fileID: 7204516045513191391}
+  - component: {fileID: 4442599781125231024}
+  - component: {fileID: 3917893425152635596}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -188,12 +192,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementInput: {fileID: 11400000, guid: 4ff79f3b6bf9d294bad32d9fef67cde2, type: 2}
   jumpInput: {fileID: 11400000, guid: d84140a66ed60d0469c91ee5b3592dd8, type: 2}
-  moveSpeed: 10
+  moveSpeed: 8
   groundrag: 5
-  jumpForce: 12
+  jumpForce: 6
   jumpCooldown: 0.25
   airMultiplier: 0.4
-  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -222,6 +225,7 @@ CapsuleCollider:
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7795592166680614248
+--- !u!114 &3599346450684544925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,6 +242,7 @@ MonoBehaviour:
   cycleFireSpellInput: {fileID: 11400000, guid: 92f718adafdb43e4fa9d930491237f11, type: 2}
   useFireSpellInput: {fileID: 11400000, guid: 64fa71da35ecd1743895cce6ca42a1df, type: 2}
 --- !u!114 &6856386803964363562
+--- !u!114 &7204516045513191391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,6 +258,9 @@ MonoBehaviour:
   WaterForce: 100
   isEnemy: 0
 --- !u!114 &2614724247240619949
+  FireForce: 500
+  WaterForce: 0
+--- !u!114 &4442599781125231024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,6 +276,10 @@ MonoBehaviour:
   IsPlayer: 1
   hp: 100
 --- !u!114 &2275623064949998165
+  hp: 100
+  Maxhp: 100
+  IsPlayer: 1
+--- !u!114 &3917893425152635596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,7 +317,7 @@ Transform:
   m_GameObject: {fileID: 5739957398838798535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -353,7 +365,7 @@ Transform:
   m_GameObject: {fileID: 5813245803054868250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

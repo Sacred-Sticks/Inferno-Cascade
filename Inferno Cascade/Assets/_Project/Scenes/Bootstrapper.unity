@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f2b2feb44b55b44898dd75cccc3cbaf7, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.15966782, g: 0.15966782, b: 0.15966782, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -220,23 +220,27 @@ MonoBehaviour:
     - Reference:
         asset: {fileID: 102900000, guid: e93cb0c8d58c92440ba53f5d7a6f3621, type: 3}
         guid: e93cb0c8d58c92440ba53f5d7a6f3621
-      Type: 6
+      Type: 5
+    - Reference:
+        asset: {fileID: 102900000, guid: 4d34d4dca2a8e064fa65c14829b05e02, type: 3}
+        guid: 4d34d4dca2a8e064fa65c14829b05e02
+      Type: 5
     - Reference:
         asset: {fileID: 102900000, guid: 1246571bc6aa3754bad900e97ae02f7c, type: 3}
         guid: 1246571bc6aa3754bad900e97ae02f7c
-      Type: 0
+      Type: 5
     - Reference:
         asset: {fileID: 102900000, guid: daa208a420ac34546abb315ae3af580b, type: 3}
         guid: daa208a420ac34546abb315ae3af580b
-      Type: 2
+      Type: 5
     - Reference:
         asset: {fileID: 102900000, guid: 78e3ae36145d85d4faa8c592341ccd95, type: 3}
         guid: 78e3ae36145d85d4faa8c592341ccd95
-      Type: 3
+      Type: 5
     - Reference:
         asset: {fileID: 102900000, guid: bae8e0c1ae81b0e4abb052918e5f5112, type: 3}
         guid: bae8e0c1ae81b0e4abb052918e5f5112
-      Type: 6
+      Type: 5
 --- !u!4 &1609293310
 Transform:
   m_ObjectHideFlags: 0

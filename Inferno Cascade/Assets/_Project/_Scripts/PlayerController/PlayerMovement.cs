@@ -23,7 +23,6 @@ namespace Inferno_Cascade
 
 
         [Header("Ground Check")]
-        public float playerHeight;
         public LayerMask whatIsGround;
         bool grounded;
 
@@ -77,9 +76,8 @@ namespace Inferno_Cascade
         private void Update()
         {
             //ground check
-            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-            SpeedControl();
+            float range = 1.1f;
+            grounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, range, whatIsGround);
 
             //handle drag
             if (grounded)
@@ -99,6 +97,16 @@ namespace Inferno_Cascade
             moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
             // rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            if (rb.velocity.sqrMagnitude > moveSpeed * moveSpeed)
+                return;
+
+            if (horizontalInput == 0 && verticalInput == 0)
+            {
+                if(grounded)
+                    moveDirection = -rb.velocity.normalized;
+                if (rb.velocity.sqrMagnitude < 0.25f)
+                    moveDirection = Vector3.zero;
+            }
 
             //on ground
             if (grounded)
@@ -110,25 +118,13 @@ namespace Inferno_Cascade
 
         }
 
-        //i think we dont need but will add anyway just in case
-        private void SpeedControl()
-        {
-            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-            //limit velocity if needed
-            if (flatVel.magnitude > moveSpeed)
-            {
-                Vector3 limitedVel = flatVel.normalized * moveSpeed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-            }
-        }
-
         private void Jump()
         {
             // reset y velocity
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            if (!grounded) { return; }
+            //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(transform.up * jumpForce - rb.velocity.y * Vector3.up, ForceMode.VelocityChange);
         }
 
         public void ResetJump()

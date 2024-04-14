@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/HUD.unity
     guid: 78e3ae36145d85d4faa8c592341ccd95
   - enabled: 1
+    path: Assets/PolygonDungeon/Scenes/Demo.unity
+    guid: 7dd3b3b67a8b56d4e8640fa6891eaf3b
+  - enabled: 1
     path: Assets/_Project/Scenes/Dependency Injector.unity
     guid: bae8e0c1ae81b0e4abb052918e5f5112
   - enabled: 1
