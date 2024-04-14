@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Inferno Cascade/Assets/_Project/Resources/Material.meta
 guid: e8f3904c128b64678924e7850225d557
+========
+guid: cba71697177e61443b4f50fc7810e15e
+>>>>>>>> CharacterController:Inferno Cascade/Assets/_Project/_Scripts/PlayerController.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
