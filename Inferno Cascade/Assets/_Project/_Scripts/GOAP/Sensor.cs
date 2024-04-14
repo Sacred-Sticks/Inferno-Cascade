@@ -8,6 +8,7 @@ namespace Inferno_Cascade
     {
         [SerializeField] float detectionRadius = 5f;
         [SerializeField] float timerInterval = 1f;
+        [SerializeField] private string targetTag = "Player";
 
         SphereCollider detectionRange;
 
@@ -45,14 +46,14 @@ namespace Inferno_Cascade
 
         void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player"))
+            if (!other.CompareTag(targetTag))
                 return;
             UpdateTargetPosition(other.gameObject);
         }
 
         void OnTriggerExit(Collider other)
         {
-            if (!other.CompareTag("Player"))
+            if (!other.CompareTag(targetTag))
                 return;
             UpdateTargetPosition();
         }

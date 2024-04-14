@@ -1,28 +1,28 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Inferno_Cascade
 {
     [SelectionBase]
-    public class ChargingEnemy : GoapAgent
+    public class HealingEnemy : GoapAgent
     {
         [Header("Sensors")]
+        [SerializeField] private Sensor healSensor;
         [SerializeField] private Sensor chaseSensor;
-        [SerializeField] private Sensor attackSensor;
+        [Space]
+        [SerializeField] private Transform[] safePositions;
 
         #region UnityEvents
         private void OnEnable()
         {
+            healSensor.OnTargetChanged += HandleTargetChange;
             chaseSensor.OnTargetChanged += HandleTargetChange;
-            attackSensor.OnTargetChanged += HandleTargetChange;
         }
 
         private void OnDisable()
         {
+            healSensor.OnTargetChanged -= HandleTargetChange;
             chaseSensor.OnTargetChanged -= HandleTargetChange;
-            attackSensor.OnTargetChanged -= HandleTargetChange;
         }
         #endregion
 
@@ -35,10 +35,11 @@ namespace Inferno_Cascade
             factory.AddBelief("Nothing", () => false);
             factory.AddBelief("AgentIdle", () => !navMeshAgent.hasPath);
             factory.AddBelief("AgentMoving", () => navMeshAgent.hasPath);
+            factory.AddBelief("SafeFromHarm", () => false);
 
-            factory.AddSensorBelief("PlayerInChaseRange", chaseSensor);
-            factory.AddSensorBelief("PlayerInAttackRange", attackSensor);
-            factory.AddBelief("AttackingPlayer", () => false);
+            factory.AddSensorBelief("EnemyInChaseRange", chaseSensor);
+            factory.AddSensorBelief("EnemyInHealRange", healSensor);
+            factory.AddBelief("HealingEnemy", () => false);
         }
 
         protected override void SetupActions()
@@ -56,16 +57,21 @@ namespace Inferno_Cascade
                 .AddEffect(beliefs["AgentMoving"])
                 .Build());
 
-            actions.Add(new AgentAction.Builder("Chase after Player")
-                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["PlayerInChaseRange"].Location))
-                .AddPrecondition(beliefs["PlayerInChaseRange"])
-                .AddEffect(beliefs["PlayerInAttackRange"])
+            actions.Add(new AgentAction.Builder("Go To Safety")
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => safePositions[Random.Range(0, safePositions.Length)].position))
+                .AddEffect(beliefs["SafeFromHarm"])
                 .Build());
 
-            actions.Add(new AgentAction.Builder("Attack Player")
-                .WithStrategy(new AttackStrategy())
-                .AddPrecondition(beliefs["PlayerInAttackRange"])
-                .AddEffect(beliefs["AttackingPlayer"])
+            actions.Add(new AgentAction.Builder("Chase after Enemy")
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["EnemyInChaseRange"].Location))
+                .AddPrecondition(beliefs["EnemyInChaseRange"])
+                .AddEffect(beliefs["EnemyInHealRange"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("Heal Enemy")
+                .WithStrategy(new HealStrategy())
+                .AddPrecondition(beliefs["EnemyInHealRange"])
+                .AddEffect(beliefs["HealingEnemy"])
                 .Build());
         }
 
@@ -79,13 +85,18 @@ namespace Inferno_Cascade
                  .Build());
 
             goals.Add(new AgentGoal.Builder("Move Randomly")
-                .WithPriority(1)
+                .WithPriority(0)
                 .WithDesiredEffect(beliefs["AgentMoving"])
                 .Build());
 
-            goals.Add(new AgentGoal.Builder("Seek And Destroy")
+            goals.Add(new AgentGoal.Builder("Go to a Safe Area")
+                .WithPriority(2)
+                .WithDesiredEffect(beliefs["EnemyInHealRange"])
+                .Build());
+
+            goals.Add(new AgentGoal.Builder("Seek and Heal Enemies")
                 .WithPriority(3)
-                .WithDesiredEffect(beliefs["AttackingPlayer"])
+                .WithDesiredEffect(beliefs["HealingEnemy"])
                 .Build());
         }
 

@@ -3,27 +3,6 @@ using UnityEngine.AI;
 
 namespace Inferno_Cascade
 {
-    public interface IActionStrategy
-    {
-        public bool CanPerform { get; }
-        public bool Complete { get; }
-
-        public void Start()
-        {
-            // noop
-        }
-
-        public void Update(float deltaTime)
-        {
-            // noop
-        }
-
-        public void Stop()
-        {
-            // noop
-        }
-    }
-
     public class IdleStrategy : IActionStrategy
     {
         public bool CanPerform => true;
@@ -102,6 +81,19 @@ namespace Inferno_Cascade
         public bool Complete { get; private set; }
 
         public AttackStrategy()
+        {
+            
+        }
+
+        
+    }
+
+    public class HealStrategy : IActionStrategy
+    {
+        public bool CanPerform => true;
+        public bool Complete { get; private set; }
+
+        public HealStrategy()
         {
             
         }
