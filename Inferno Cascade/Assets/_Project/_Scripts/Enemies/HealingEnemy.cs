@@ -61,7 +61,7 @@ namespace Inferno_Cascade
                 .Build());
 
             actions.Add(new AgentAction.Builder("Heal Enemy")
-                .WithStrategy(new HealStrategy(healSensor.Target))
+                .WithStrategy(new HealStrategy(() => healSensor.Target))
                 .AddPrecondition(beliefs["EnemyInHealRange"])
                 .AddEffect(beliefs["HealingEnemy"])
                 .Build());

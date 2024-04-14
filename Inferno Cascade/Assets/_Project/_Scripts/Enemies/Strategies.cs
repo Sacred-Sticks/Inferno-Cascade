@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Inferno_Cascade
 {
@@ -112,8 +114,11 @@ namespace Inferno_Cascade
         public bool CanPerform => true;
         public bool Complete { get; private set; }
 
-        public HealStrategy(GameObject healTarget)
+        private Func<GameObject> target;
+
+        public HealStrategy(Func<GameObject> getTarget)
         {
+            target = getTarget;
             // Initialize the health component of the target
         }
 
@@ -134,7 +139,10 @@ namespace Inferno_Cascade
         {
             timer.Tick(deltaTime);
 
-            // if target is null, complete
+            var target = this.target();
+
+            if (!target /* OR if target health is above a threshold */)
+                Complete = true;
         }
 
         private void HealTarget()
