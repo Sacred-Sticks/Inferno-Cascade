@@ -184,6 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   Maxhp: 100
+  hpBar: {fileID: 0}
+  IsPlayer: 1
 --- !u!1 &363199951
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +362,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 6
   Maxhp: 6
+  hpBar: {fileID: 0}
+  IsPlayer: 0
 --- !u!1 &468520725
 GameObject:
   m_ObjectHideFlags: 0
