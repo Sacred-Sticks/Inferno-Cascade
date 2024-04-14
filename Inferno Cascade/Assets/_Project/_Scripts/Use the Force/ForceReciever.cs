@@ -11,7 +11,7 @@ namespace Inferno_Cascade
             rb = GetComponent<Rigidbody>();
         }
 
-        public void AddForceFromPosition(Vector3 explosionOrigin, SpellType spelltype)
+        public void AddForceFromPosition(Vector3 explosionOrigin, SpellManager.SpellType spelltype)
         {
             Vector3 direction = (transform.position - explosionOrigin).normalized;
             

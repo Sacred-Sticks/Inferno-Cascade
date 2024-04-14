@@ -8,7 +8,7 @@ namespace Inferno_Cascade
     {
         [SerializeField] float radius;
         private Collider[] colliders= new Collider[10];
-        [SerializeField] SpellType spelltype;
+        [SerializeField] SpellManager.SpellType spelltype;
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -23,6 +23,5 @@ namespace Inferno_Cascade
             }
         }
     }
-    public enum SpellType {Fire,Water}
 }
 

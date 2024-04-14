@@ -43,4 +43,14 @@ namespace Inferno_Cascade
             Debug.Log($"{Name} Ended");
         }
     }
+
+    public struct FireBall : ISpell
+    {
+        public void BeginSpell()
+        {
+            Transform camTran = Camera.main.transform;
+            GameObject fb = Resources.Load<GameObject>("Assests/Prefabs/SpellPrefabs/FireBall");
+            var ball = Object.Instantiate(fb, camTran.position, camTran.rotation);
+        }
+    }
 }
