@@ -12,7 +12,15 @@ namespace Inferno_Cascade
         [SerializeField] private Sensor chaseSensor;
         [SerializeField] private Sensor attackSensor;
 
+        private Health health;
+
         #region UnityEvents
+        protected override void Start()
+        {
+            health = GetComponent<Health>();
+            base.Start();
+        }
+
         private void OnEnable()
         {
             chaseSensor.OnTargetChanged += HandleTargetChange;
@@ -35,6 +43,9 @@ namespace Inferno_Cascade
             factory.AddBelief("Nothing", () => false);
             factory.AddBelief("AgentIdle", () => !navMeshAgent.hasPath);
             factory.AddBelief("AgentMoving", () => navMeshAgent.hasPath);
+
+            factory.AddBelief("Healthy", () => health.HealthPercentage > 0.75f);
+            factory.AddBelief("Hurt", () => health.HealthPercentage < 0.25f);
 
             factory.AddSensorBelief("PlayerInChaseRange", chaseSensor);
             factory.AddSensorBelief("PlayerInAttackRange", attackSensor);

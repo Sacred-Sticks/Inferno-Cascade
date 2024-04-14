@@ -33,7 +33,7 @@ namespace Inferno_Cascade
             gPlanner = new GoapPlanner();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             SetupTimers();
             SetupBeliefs();

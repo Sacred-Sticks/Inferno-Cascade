@@ -10,7 +10,15 @@ namespace Inferno_Cascade
         [SerializeField] private Sensor attackSensor;
         [SerializeField] private Sensor chaseSensor;
 
+        private Health health;
+
         #region UnityEvents
+        protected override void Start()
+        {
+            health = GetComponent<Health>();
+            base.Start();
+        }
+
         private void OnEnable()
         {
             chaseSensor.OnTargetChanged += HandleTargetChange;
@@ -33,6 +41,8 @@ namespace Inferno_Cascade
             factory.AddBelief("Nothing", () => false);
             factory.AddBelief("AgentIdle", () => !navMeshAgent.hasPath);
             factory.AddBelief("AgentMoving", () => navMeshAgent.hasPath);
+
+            factory.AddBelief("NotHurt", () => health.HealthPercentage > 0.25f);
 
             factory.AddSensorBelief("PlayerInChaseRange", chaseSensor);
             factory.AddSensorBelief("PlayerInAttackRange", attackSensor);
@@ -57,12 +67,14 @@ namespace Inferno_Cascade
             actions.Add(new AgentAction.Builder("ChasePlayer")
                 .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["PlayerInChaseRange"].Location))
                 .AddPrecondition(beliefs["PlayerInChaseRange"])
+                .AddPrecondition(beliefs["NotHurt"])
                 .AddEffect(beliefs["PlayerInAttackRange"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("AttackPlayer")
-                .WithStrategy(new CautiousAttackStrategy(() => attackSensor.Target))
+                .WithStrategy(new CautiousAttackStrategy(() => attackSensor.Target, health))
                 .AddPrecondition(beliefs["PlayerInAttackRange"])
+                .AddPrecondition(beliefs["NotHurt"])
                 .AddEffect(beliefs["AttackingPlayer"])
                 .Build());
         }

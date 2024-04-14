@@ -29,6 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Testing/AI Level.unity
     guid: c8fa9e288eb67c549bcb2932cea692da
+  - enabled: 1
     path: Assets/_Project/Scenes/Character Test.unity
     guid: 1246571bc6aa3754bad900e97ae02f7c
+  - enabled: 1
+    path: Assets/_Project/Scenes/WIN.unity
+    guid: 7c13a5ec1a396ee4ba134d9b275023d5
   m_configObjects: {}

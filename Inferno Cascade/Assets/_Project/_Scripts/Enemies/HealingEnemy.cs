@@ -12,7 +12,15 @@ namespace Inferno_Cascade
         [Space]
         [SerializeField] private Transform[] safePositions;
 
+        private Health health;
+
         #region UnityEvents
+        protected override void Start()
+        {
+            health = GetComponent<Health>();
+            base.Start();
+        }
+
         private void OnEnable()
         {
             healSensor.OnTargetChanged += HandleTargetChange;

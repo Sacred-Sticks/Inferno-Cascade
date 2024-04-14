@@ -82,7 +82,11 @@ namespace Inferno_Cascade
         public bool CanPerform => true;
         public bool Complete { get; private set; }
 
-        Func<GameObject> target;
+        private Func<GameObject> target;
+        private Health targetHealth;
+        private GameObject targetGameObject;
+
+        private float damagePerHit = 2;
 
         public AttackStrategy(Func<GameObject> getTarget)
         {
@@ -101,21 +105,22 @@ namespace Inferno_Cascade
                 timer.Start();
             };
             timer.Start();
+
+            targetHealth = target().GetComponent<Health>();
+            targetGameObject = target();
         }
 
         public void Update(float deltaTime)
         {
             timer.Tick(deltaTime);
 
-            var target = this.target();
-
-            if (target == null)
+            if (targetGameObject == null)
                 Complete = true;
         }
 
         private void AttackTarget()
         {
-            // Attack the target
+            targetHealth.ChangeHealth(-damagePerHit);
         }
     }
 
@@ -124,40 +129,48 @@ namespace Inferno_Cascade
         public bool CanPerform => true;
         public bool Complete { get; private set; }
 
-        Func<GameObject> target;
+        private Func<GameObject> target;
+        private Health agentHealth;
+        private Health targetHealth;
+        private GameObject targetGameObject;
 
-        public CautiousAttackStrategy(Func<GameObject> getTarget)
+        private float damagePerHit = 10;
+
+        private float healthThreshold = 0.25f;
+
+        public CautiousAttackStrategy(Func<GameObject> getTarget, Health agentHealth)
         {
             target = getTarget;
-            // Initialize the health component of the target
+            this.agentHealth = agentHealth;
         }
 
         private CountdownTimer timer;
 
         public void Start()
         {
-            timer = new CountdownTimer(2);
+            timer = new CountdownTimer(0.5f);
             timer.OnTimerStop += () =>
             {
                 AttackTarget();
                 timer.Start();
             };
             timer.Start();
+
+            targetHealth = target().GetComponent<Health>();
+            targetGameObject = target();
         }
 
         public void Update(float deltaTime)
         {
             timer.Tick(deltaTime);
 
-            var target = this.target();
-
-            if (target == null /* OR if agent health is too low */)
+            if (targetGameObject == null || agentHealth.HealthPercentage < healthThreshold)
                 Complete = true;
         }
 
         private void AttackTarget()
         {
-            // Attack the target
+            targetHealth.ChangeHealth(-damagePerHit);
         }
     }
 
@@ -167,39 +180,45 @@ namespace Inferno_Cascade
         public bool Complete { get; private set; }
 
         private Func<GameObject> target;
+        private Health targetHealth;
+        private GameObject targetObject;
+
+        private float healthyThreshold = 0.75f;
+        private float healAmount = 5;
 
         public HealStrategy(Func<GameObject> getTarget)
         {
             target = getTarget;
-            // Initialize the health component of the target
         }
 
         private CountdownTimer timer;
 
         public void Start()
         {
-            timer = new CountdownTimer(2);
+            Complete = false;
+            timer = new CountdownTimer(0.5f);
             timer.OnTimerStop += () =>
             {
                 HealTarget();
                 timer.Start();
             };
             timer.Start();
+
+            targetHealth = target().GetComponent<Health>();
+            targetObject = target();
         }
 
         public void Update(float deltaTime)
         {
             timer.Tick(deltaTime);
 
-            var target = this.target();
-
-            if (!target /* OR if target health is above a threshold */)
+            if (targetObject == null || targetHealth.HealthPercentage >= healthyThreshold)
                 Complete = true;
         }
 
         private void HealTarget()
         {
-            // Heal the target
+            targetHealth.ChangeHealth(healAmount);
         }
     }
 }

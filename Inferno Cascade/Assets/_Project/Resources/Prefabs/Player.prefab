@@ -104,9 +104,14 @@ GameObject:
   - component: {fileID: 4277969324373425256}
   - component: {fileID: 476763424482966470}
   - component: {fileID: 3932160830945592631}
+  - component: {fileID: 8552703444216786788}
+  - component: {fileID: 7795592166680614248}
+  - component: {fileID: 6856386803964363562}
+  - component: {fileID: 2614724247240619949}
+  - component: {fileID: 2275623064949998165}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,6 +198,87 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   orientation: {fileID: 3798677959187538946}
+--- !u!136 &8552703444216786788
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7795592166680614248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45dc076358e279c4db0d0544153c7688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cycleWaterSpellInput: {fileID: 11400000, guid: b70a16a2eff05cd4aa08c4ba1270e77c, type: 2}
+  useWaterSpellInput: {fileID: 11400000, guid: 7da63a9de09f0eb47a204b3cab91a210, type: 2}
+  cycleFireSpellInput: {fileID: 11400000, guid: 92f718adafdb43e4fa9d930491237f11, type: 2}
+  useFireSpellInput: {fileID: 11400000, guid: 64fa71da35ecd1743895cce6ca42a1df, type: 2}
+--- !u!114 &6856386803964363562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7748c741f5e4045aa6ac6a1c9b4196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireForce: 400
+  WaterForce: 100
+  isEnemy: 0
+--- !u!114 &2614724247240619949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebd066b46e2a4843b71122a3ba7230e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 100
+  IsPlayer: 1
+  hp: 100
+--- !u!114 &2275623064949998165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee891e75631744b4e8b3e34bde58136c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5739957398838798535
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +337,6 @@ GameObject:
   - component: {fileID: 3715420589143746092}
   - component: {fileID: 139033592808251392}
   - component: {fileID: 3095876034118706477}
-  - component: {fileID: 6655051714806672237}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Untagged
@@ -324,29 +409,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6655051714806672237
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5813245803054868250}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5952360550357367825
 GameObject:
   m_ObjectHideFlags: 0

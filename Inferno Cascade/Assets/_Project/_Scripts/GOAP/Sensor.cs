@@ -17,7 +17,8 @@ namespace Inferno_Cascade
         public Vector3 TargetPosition => Target ? Target.transform.position : Vector3.zero;
         public bool IsTargetInRange => TargetPosition != Vector3.zero;
 
-        public GameObject Target { get; private set; }
+        public GameObject Target => target;
+        private GameObject target;
         Vector3 lastKnownPosition;
         CountdownTimer timer;
 
@@ -67,7 +68,7 @@ namespace Inferno_Cascade
 
         void UpdateTargetPosition(GameObject target = null)
         {
-            Target = target;
+            this.target = target;
             if (IsTargetInRange && (lastKnownPosition != TargetPosition || lastKnownPosition != Vector3.zero))
             {
                 lastKnownPosition = TargetPosition;
