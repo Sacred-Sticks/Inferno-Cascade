@@ -74,4 +74,25 @@ namespace Inferno_Cascade
             }
         }
     }
+
+    public class MoveStrategy : IActionStrategy
+    {
+        private readonly NavMeshAgent agent;
+        private readonly System.Func<Vector3> destination;
+
+        public bool CanPerform => !Complete;
+        public bool Complete => agent.remainingDistance <= 2f && !agent.pathPending;
+
+        public MoveStrategy(NavMeshAgent agent, System.Func<Vector3> destination) 
+        {
+            this.agent = agent;
+            this.destination = destination;
+        }
+
+        public void Start()
+            => agent.SetDestination(destination());
+
+        public void Stop()
+            => agent.ResetPath();
+    }
 }
