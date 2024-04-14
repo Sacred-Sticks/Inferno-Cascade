@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour, IInputReceiver
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        // rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
         //on ground
         if (grounded)

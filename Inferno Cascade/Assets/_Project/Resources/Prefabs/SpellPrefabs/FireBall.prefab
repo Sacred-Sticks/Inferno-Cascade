@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 6
-  spelltype: 0
+  spelltype: 1
 --- !u!54 &7403939423703400218
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,4 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c9ba3b2f54c4396bb799e47587e800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 8
+  Speed: 300

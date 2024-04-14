@@ -46,11 +46,14 @@ namespace Inferno_Cascade
 
     public struct FireBall : ISpell
     {
+        private static float offsetAmount = 0.5f;
+
         public void BeginSpell()
         {
             Transform camTran = Camera.main.transform;
-            GameObject fb = Resources.Load<GameObject>("Assests/Prefabs/SpellPrefabs/FireBall");
-            var ball = Object.Instantiate(fb, camTran.position, camTran.rotation);
+            Vector3 oofset = camTran.forward * offsetAmount; 
+            GameObject fb = Resources.Load<GameObject>("Prefabs/SpellPrefabs/FireBall");
+            var ball = Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
         }
     }
 }

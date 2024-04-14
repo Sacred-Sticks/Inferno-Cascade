@@ -32,7 +32,7 @@ namespace Inferno_Cascade
             waterSpellIndex = 0;
             fireSpells = new ISpell[]
             {
-                new ExampleSpell("Fireball"),
+                new FireBall(),
                 new ExampleSpell("Fire Rune"),
                 new ExampleSpell("Fire Javelin"),
             };

@@ -16,7 +16,7 @@ namespace Inferno_Cascade
             for (int i = 0; i < size; i++)
             {
                 var go = colliders[i].gameObject;
-                go.GetComponent<IForceReciever>()?.AddForceFromPosition(transform.position, spelltype);
+                go.transform.root.GetComponent<IForceReciever>()?.AddForceFromPosition(transform.position, spelltype);
 
                 //following is what tutorial used
 
