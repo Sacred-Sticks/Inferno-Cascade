@@ -102,13 +102,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7135602552605431660}
   - component: {fileID: 4277969324373425256}
+  - component: {fileID: 8552703444216786788}
   - component: {fileID: 476763424482966470}
   - component: {fileID: 3932160830945592631}
-  - component: {fileID: 8552703444216786788}
-  - component: {fileID: 7795592166680614248}
-  - component: {fileID: 6856386803964363562}
-  - component: {fileID: 2614724247240619949}
-  - component: {fileID: 2275623064949998165}
   - component: {fileID: 3599346450684544925}
   - component: {fileID: 7204516045513191391}
   - component: {fileID: 4442599781125231024}
@@ -165,6 +161,29 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!136 &8552703444216786788
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &476763424482966470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,30 +220,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   orientation: {fileID: 3798677959187538946}
---- !u!136 &8552703444216786788
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5713745608548532428}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7795592166680614248
 --- !u!114 &3599346450684544925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +236,6 @@ MonoBehaviour:
   useWaterSpellInput: {fileID: 11400000, guid: 7da63a9de09f0eb47a204b3cab91a210, type: 2}
   cycleFireSpellInput: {fileID: 11400000, guid: 92f718adafdb43e4fa9d930491237f11, type: 2}
   useFireSpellInput: {fileID: 11400000, guid: 64fa71da35ecd1743895cce6ca42a1df, type: 2}
---- !u!114 &6856386803964363562
 --- !u!114 &7204516045513191391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,9 +251,6 @@ MonoBehaviour:
   FireForce: 400
   WaterForce: 100
   isEnemy: 0
---- !u!114 &2614724247240619949
-  FireForce: 500
-  WaterForce: 0
 --- !u!114 &4442599781125231024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,10 +266,6 @@ MonoBehaviour:
   maxHP: 100
   IsPlayer: 1
   hp: 100
---- !u!114 &2275623064949998165
-  hp: 100
-  Maxhp: 100
-  IsPlayer: 1
 --- !u!114 &3917893425152635596
 MonoBehaviour:
   m_ObjectHideFlags: 0
