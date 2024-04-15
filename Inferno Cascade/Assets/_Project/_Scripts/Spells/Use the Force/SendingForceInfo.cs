@@ -7,27 +7,30 @@ namespace Inferno_Cascade
     public class SendingForceInfo : MonoBehaviour
     {
         [SerializeField] float radius;
-        private Collider[] colliders= new Collider[10];
         [SerializeField] SpellManager.SpellType spelltype;
 
         private void OnCollisionEnter(Collision collision)
         {
-            //fire ball calc
-            if(spelltype == SpellManager.SpellType.Fire)
+            System.Action action = spelltype switch
             {
-                int size = Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
-                for (int i = 0; i < size; i++)
-                {
-                    var go = colliders[i].gameObject;
-                    go.transform.root.GetComponent<IForceReciever>()?.AddForceFromPosition(transform.position, spelltype);
-                }
-            }
-            else if(spelltype ==SpellManager.SpellType.Water)
-            {
-                //water only affects the target it hits
-                collision.transform.root.GetComponent<IForceReciever>()?.AddForceFromPosition(transform.position, spelltype);
-            }
-            Destroy(this.gameObject);
+                SpellManager.SpellType.Fire => FireCollision,
+                SpellManager.SpellType.Water => () => WaterCollision(collision),
+                _ => null
+            };
+            action?.Invoke();
+            Destroy(gameObject);
+        }
+
+        private void FireCollision()
+        {
+            var colliders = Physics.OverlapSphere(transform.position, radius);
+            foreach (var collider in colliders)
+                collider.GetComponentInParent<IForceReciever>()?.AddForceFromPosition(transform.position, spelltype);
+        }
+
+        private void WaterCollision(Collision collision)
+        {
+            collision.transform.GetComponentInParent<IForceReciever>()?.AddForceFromPosition(transform.position, spelltype);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Inferno_Cascade
 
         public float HealthPercentage => hp / maxHP;
 
-        [Inject] private hpLocator hpLoc;
+        [Inject] private HealthBar healthBar;
 
         private void Start()
         {
@@ -33,7 +33,7 @@ namespace Inferno_Cascade
 
             if(IsPlayer)
             {
-                hpLoc.SetHPBar(hp, maxHP);
+                healthBar.SetHealth(hp, maxHP);
             }
 
             if (hp <= 0)

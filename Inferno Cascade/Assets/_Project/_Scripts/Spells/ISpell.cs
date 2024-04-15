@@ -47,11 +47,12 @@ namespace Inferno_Cascade
     public struct FireBall : ISpell
     {
         private static float offsetAmount = 0.5f;
+        private static float verticalOffset = 0.125f;
 
         public void BeginSpell()
         {
             Transform camTran = Camera.main.transform;
-            Vector3 oofset = camTran.forward * offsetAmount; 
+            Vector3 oofset = camTran.forward * offsetAmount + Vector3.down * verticalOffset; 
             GameObject fb = Resources.Load<GameObject>("Prefabs/SpellPrefabs/FireBall");
             var ball = Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
         }
@@ -60,10 +61,12 @@ namespace Inferno_Cascade
     public struct WaterJet : ISpell
     {
         private static float offsetAmount = 0.5f;
+        private static float verticalOffset = 0.125f;
+
         public void BeginSpell()
         {
             Transform camTran = Camera.main.transform;
-            Vector3 oofset = camTran.forward * offsetAmount;
+            Vector3 oofset = camTran.forward * offsetAmount + Vector3.down * verticalOffset;
             GameObject fb = Resources.Load<GameObject>("Prefabs/SpellPrefabs/WaterJet");
             var ball = Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
         }
