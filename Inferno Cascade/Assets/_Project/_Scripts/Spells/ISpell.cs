@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Inferno_Cascade
 {
@@ -18,7 +20,7 @@ namespace Inferno_Cascade
         }
     }
 
-    public struct ExampleSpell : ISpell
+    public class ExampleSpell : ISpell
     {
         public ExampleSpell(string name)
         {
@@ -44,32 +46,59 @@ namespace Inferno_Cascade
         }
     }
 
-    public struct FireBall : ISpell
+    public class ProjectileSpell : ISpell
     {
+        public ProjectileSpell(string pathway)
+        {
+            this.pathway = pathway;
+        }
+
         private static float offsetAmount = 0.5f;
         private static float verticalOffset = 0.125f;
+        private string pathway { get; }
+
 
         public void BeginSpell()
         {
             Transform camTran = Camera.main.transform;
             Vector3 oofset = camTran.forward * offsetAmount + Vector3.down * verticalOffset; 
-            GameObject fb = Resources.Load<GameObject>("Prefabs/SpellPrefabs/FireBall");
-            var ball = Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
+            GameObject fb = Resources.Load<GameObject>(pathway);
+            UnityEngine.Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
         }
     }
 
-    public struct WaterJet : ISpell
+    public class HealSpell : ISpell
     {
-        private static float offsetAmount = 0.5f;
-        private static float verticalOffset = 0.125f;
+        private float healAmount { get; }
+        private float healCooldown { get; }
+
+        private bool canHeal;
+
+        public HealSpell(float healAmount, float healCooldown)
+        {
+            this.healAmount = healAmount;
+            this.healCooldown = healCooldown;
+        }
 
         public void BeginSpell()
         {
-            Transform camTran = Camera.main.transform;
-            Vector3 oofset = camTran.forward * offsetAmount + Vector3.down * verticalOffset;
-            GameObject fb = Resources.Load<GameObject>("Prefabs/SpellPrefabs/WaterJet");
-            var ball = Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
+            var health = Registry.Get<Rigidbody>(RegistryStrings.PlayerRigidbody).GetComponent<Health>();
+            Heal(health);
+        }
+
+        public void EndSpell()
+        {
+            canHeal = false;
+        }
+
+        private async void Heal(Health health)
+        {
+            canHeal = true;
+            while (canHeal)
+            {
+                health.ChangeHealth(healAmount);
+                await Task.Delay(TimeSpan.FromSeconds(healCooldown));
+            }
         }
     }
-
 }
