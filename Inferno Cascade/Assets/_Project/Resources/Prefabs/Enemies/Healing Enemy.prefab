@@ -79,9 +79,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6501300738156811195}
   - component: {fileID: 8975740539406399792}
-  - component: {fileID: 2295093726100789342}
   - component: {fileID: 250477970873578629}
+  - component: {fileID: 2295093726100789342}
   - component: {fileID: 8939139247592268287}
+  - component: {fileID: -1342238800567286475}
+  - component: {fileID: -1180783937989812306}
   m_Layer: 0
   m_Name: Healing Enemy
   m_TagString: Enemy
@@ -129,23 +131,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2295093726100789342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7218562231974845896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e922060410ac1094ea41c7860fb617ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healSensor: {fileID: 1980736968358164532}
-  chaseSensor: {fileID: 7010817353126168141}
-  safePositions:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!136 &250477970873578629
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -169,6 +154,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2295093726100789342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218562231974845896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e922060410ac1094ea41c7860fb617ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healSensor: {fileID: 1980736968358164532}
+  chaseSensor: {fileID: 7010817353126168141}
 --- !u!114 &8939139247592268287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +183,33 @@ MonoBehaviour:
   maxHP: 100
   IsPlayer: 0
   hp: 0
+--- !u!114 &-1342238800567286475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218562231974845896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7748c741f5e4045aa6ac6a1c9b4196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireForce: 10
+  WaterForce: 10
+  isEnemy: 1
+--- !u!114 &-1180783937989812306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218562231974845896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a65912d171345fcab12b460a656e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8104654262896490602
 GameObject:
   m_ObjectHideFlags: 0

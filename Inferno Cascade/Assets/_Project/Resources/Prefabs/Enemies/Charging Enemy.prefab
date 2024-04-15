@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6852198660924914552}
   - component: {fileID: 1855222706076043217}
-  - component: {fileID: 2783820005688803292}
   - component: {fileID: 6661700716590760337}
+  - component: {fileID: 2783820005688803292}
   - component: {fileID: 1919553599087823171}
+  - component: {fileID: -3596084440584325319}
+  - component: {fileID: -5189867519962728852}
   m_Layer: 0
   m_Name: Charging Enemy
   m_TagString: Enemy
@@ -60,20 +62,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2783820005688803292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992015991878068623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3aa52a662f58cd4c9fda0d15a0a8e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chaseSensor: {fileID: 1320128253449062059}
-  attackSensor: {fileID: 8639859539947735884}
 --- !u!136 &6661700716590760337
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -97,6 +85,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2783820005688803292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992015991878068623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3aa52a662f58cd4c9fda0d15a0a8e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseSensor: {fileID: 1320128253449062059}
+  attackSensor: {fileID: 8639859539947735884}
 --- !u!114 &1919553599087823171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +114,33 @@ MonoBehaviour:
   maxHP: 100
   IsPlayer: 0
   hp: 0
+--- !u!114 &-3596084440584325319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992015991878068623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7748c741f5e4045aa6ac6a1c9b4196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireForce: 10
+  WaterForce: 10
+  isEnemy: 1
+--- !u!114 &-5189867519962728852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992015991878068623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a65912d171345fcab12b460a656e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3134679295539981050
 GameObject:
   m_ObjectHideFlags: 0

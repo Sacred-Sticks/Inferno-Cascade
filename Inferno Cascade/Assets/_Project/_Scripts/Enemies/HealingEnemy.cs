@@ -9,8 +9,8 @@ namespace Inferno_Cascade
         [Header("Sensors")]
         [SerializeField] private Sensor healSensor;
         [SerializeField] private Sensor chaseSensor;
-        [Space]
-        [SerializeField] private Transform[] safePositions;
+
+        public List<Transform> SafePositions { get; } = new List<Transform>();
 
         private Health health;
 
@@ -18,6 +18,7 @@ namespace Inferno_Cascade
         protected override void Start()
         {
             health = GetComponent<Health>();
+
             base.Start();
         }
 
@@ -58,7 +59,7 @@ namespace Inferno_Cascade
                 .Build());
 
             actions.Add(new AgentAction.Builder("Go To Safety")
-                .WithStrategy(new MoveStrategy(navMeshAgent, () => safePositions[Random.Range(0, safePositions.Length)].position))
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => SafePositions[Random.Range(0, SafePositions.Count)].position))
                 .AddEffect(beliefs["SafeFromHarm"])
                 .Build());
 

@@ -16,6 +16,11 @@ namespace Inferno_Cascade
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
+            if (isEnemy)
+            {
+                rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                rb.isKinematic = true;
+            }
         }
 
         public void AddForceFromPosition(Vector3 explosionOrigin, SpellManager.SpellType spelltype)
@@ -44,7 +49,7 @@ namespace Inferno_Cascade
                 default:
                     throw new System.NotImplementedException();
             }
-            
+
             //water just push no need for damage calc
         }
 
