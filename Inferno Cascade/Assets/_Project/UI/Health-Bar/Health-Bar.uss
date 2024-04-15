@@ -1,0 +1,27 @@
+VisualElement 
+{
+
+}
+
+.unity-progress-bar {
+	position: relative;
+	top: 1000px;
+	width: 33%;
+	min-height: 500px;
+	max-height: 500px;
+	align-self: center;
+}
+
+.unity-progress-bar__background {
+	background-color: #4f4f4f;
+	border-radius: 10px;
+	border-width: 5px;
+	border-color: #2f2f2f;
+	min-height: 50px;
+	max-height: 50px;
+}
+
+.unity-progress-bar__progress {
+	background-color: #A0DDA0;
+	border-radius: 5px;
+}
