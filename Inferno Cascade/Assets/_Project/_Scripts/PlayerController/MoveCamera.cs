@@ -54,6 +54,15 @@ public class MoveCamera : MonoBehaviour, IInputReceiver
     {
         rawInput = input;
     }
+
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
 }
         
     
