@@ -102,6 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7135602552605431660}
   - component: {fileID: 4277969324373425256}
+  - component: {fileID: 8552703444216786788}
   - component: {fileID: 476763424482966470}
   - component: {fileID: 3932160830945592631}
   - component: {fileID: 3599346450684544925}
@@ -110,7 +111,7 @@ GameObject:
   - component: {fileID: 3917893425152635596}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +161,29 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!136 &8552703444216786788
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &476763424482966470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,8 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7748c741f5e4045aa6ac6a1c9b4196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireForce: 500
-  WaterForce: 0
+  FireForce: 400
+  WaterForce: 100
+  isEnemy: 0
 --- !u!114 &4442599781125231024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,9 +263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ebd066b46e2a4843b71122a3ba7230e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  Maxhp: 100
+  maxHP: 100
   IsPlayer: 1
+  hp: 100
 --- !u!114 &3917893425152635596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +336,6 @@ GameObject:
   - component: {fileID: 3715420589143746092}
   - component: {fileID: 139033592808251392}
   - component: {fileID: 3095876034118706477}
-  - component: {fileID: 6655051714806672237}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Untagged
@@ -384,29 +408,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6655051714806672237
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5813245803054868250}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5952360550357367825
 GameObject:
   m_ObjectHideFlags: 0

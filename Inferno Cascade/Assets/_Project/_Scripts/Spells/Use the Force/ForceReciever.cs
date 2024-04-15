@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Inferno_Cascade
 {
@@ -6,7 +8,11 @@ namespace Inferno_Cascade
     {
         [SerializeField] float FireForce;
         [SerializeField] float WaterForce;
+        [SerializeField] bool isEnemy = true;
         private Rigidbody rb;
+
+        Coroutine routine;
+
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -14,6 +20,19 @@ namespace Inferno_Cascade
 
         public void AddForceFromPosition(Vector3 explosionOrigin, SpellManager.SpellType spelltype)
         {
+            if (isEnemy)
+            {
+                var nav = GetComponent<NavMeshAgent>();
+                nav.enabled = false;
+                GetComponent<GoapAgent>().enabled = false;
+                rb.isKinematic = false;
+
+                if (routine != null)
+                {
+                    StopCoroutine(routine);
+                }
+                routine = StartCoroutine(EnableNavMesh());
+            }
             switch (spelltype)
             {
                 case SpellManager.SpellType.Fire:
@@ -29,27 +48,36 @@ namespace Inferno_Cascade
             //water just push no need for damage calc
         }
 
+        private IEnumerator EnableNavMesh()
+        {
+            yield return new WaitForSeconds(2);
+            GetComponent<NavMeshAgent>().enabled = true;
+            GetComponent<GoapAgent>().enabled = true;
+            rb.isKinematic = true;
+        }
+
         private void FireCalculation(Vector3 explosionOrigin)
         {
             //doing this because only fire do damage
             float dist = Vector3.Distance(explosionOrigin, this.transform.position);
             //temp damage me tired
             float amount = -5;
-            GetComponent<Health>().changeHealth(amount);
+            GetComponent<Health>().ChangeHealth(amount);
 
             Vector3 direction = (transform.position - explosionOrigin).normalized;
-            AddForce(direction, FireForce);
+            StartCoroutine(AddForce(direction, FireForce));
         }
 
         private void WaterCalculation()
         {
             var playerBody = Registry.Get<Rigidbody>(RegistryStrings.PlayerRigidbody);
             var direction = transform.position - playerBody.position;
-            AddForce(direction, WaterForce);
+            StartCoroutine(AddForce(direction, WaterForce));
         }
 
-        private void AddForce(Vector3 direction, float forceStrength)
+        private IEnumerator AddForce(Vector3 direction, float forceStrength)
         {
+            yield return new WaitForEndOfFrame();
             rb.AddForce(direction * forceStrength, ForceMode.Force);
         }
     }

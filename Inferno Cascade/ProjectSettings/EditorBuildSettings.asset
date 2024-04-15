@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/Levels/Level 1.unity
     guid: 4d34d4dca2a8e064fa65c14829b05e02
   - enabled: 1
-    path: Assets/_Project/Scenes/Character Test.unity
-    guid: 1246571bc6aa3754bad900e97ae02f7c
+    path: Assets/_Project/Scenes/Testing/AI Level.unity
+    guid: c8fa9e288eb67c549bcb2932cea692da
+  - enabled: 1
+    path: Assets/_Project/Scenes/Levels/Level 1.1.unity
+    guid: 880bf402c539bf349bd495da26c53a9f
   m_configObjects: {}

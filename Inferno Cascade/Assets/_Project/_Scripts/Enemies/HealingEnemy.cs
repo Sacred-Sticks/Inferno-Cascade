@@ -1,0 +1,104 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Inferno_Cascade
+{
+    [SelectionBase]
+    public class HealingEnemy : GoapAgent
+    {
+        [Header("Sensors")]
+        [SerializeField] private Sensor healSensor;
+        [SerializeField] private Sensor chaseSensor;
+        [Space]
+        [SerializeField] private Transform[] safePositions;
+
+        private Health health;
+
+        #region UnityEvents
+        protected override void Start()
+        {
+            health = GetComponent<Health>();
+            base.Start();
+        }
+
+        private void OnEnable()
+        {
+            healSensor.OnTargetChanged += HandleTargetChange;
+            chaseSensor.OnTargetChanged += HandleTargetChange;
+        }
+
+        private void OnDisable()
+        {
+            healSensor.OnTargetChanged -= HandleTargetChange;
+            chaseSensor.OnTargetChanged -= HandleTargetChange;
+        }
+        #endregion
+
+        #region GOAP
+        protected override void SetupBeliefs()
+        {
+            beliefs = new Dictionary<string, AgentBelief>();
+            var factory = new BeliefFactory(this, beliefs);
+
+            factory.AddBelief("Nothing", () => false);
+            factory.AddBelief("SafeFromHarm", () => false);
+
+            factory.AddSensorBelief("EnemyInChaseRange", chaseSensor);
+            factory.AddSensorBelief("EnemyInHealRange", healSensor);
+            factory.AddBelief("HealingEnemy", () => false);
+        }
+
+        protected override void SetupActions()
+        {
+            actions = new HashSet<AgentAction>();
+
+            actions.Add(new AgentAction.Builder("No Movement")
+                .WithStrategy(new IdleStrategy(5))
+                .AddEffect(beliefs["Nothing"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("Go To Safety")
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => safePositions[Random.Range(0, safePositions.Length)].position))
+                .AddEffect(beliefs["SafeFromHarm"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("Chase after Enemy")
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["EnemyInChaseRange"].Location))
+                .AddPrecondition(beliefs["EnemyInChaseRange"])
+                .AddEffect(beliefs["EnemyInHealRange"])
+                .Build());
+
+            actions.Add(new AgentAction.Builder("Heal Enemy")
+                .WithStrategy(new HealStrategy(() => healSensor.Target))
+                .AddPrecondition(beliefs["EnemyInHealRange"])
+                .AddEffect(beliefs["HealingEnemy"])
+                .Build());
+        }
+
+        protected override void SetupGoals()
+        {
+            goals = new HashSet<AgentGoal>();
+
+            goals.Add(new AgentGoal.Builder("Don't Move")
+                 .WithPriority(2)
+                 .WithDesiredEffect(beliefs["Nothing"])
+                 .Build());
+
+            goals.Add(new AgentGoal.Builder("Go to a Safe Area")
+                .WithPriority(2)
+                .WithDesiredEffect(beliefs["SafeFromHarm"])
+                .Build());
+
+            goals.Add(new AgentGoal.Builder("Seek and Heal Enemies")
+                .WithPriority(3)
+                .WithDesiredEffect(beliefs["HealingEnemy"])
+                .Build());
+        }
+
+        protected override void UpdateStats()
+        {
+            // noop
+        }
+        #endregion
+    }
+}

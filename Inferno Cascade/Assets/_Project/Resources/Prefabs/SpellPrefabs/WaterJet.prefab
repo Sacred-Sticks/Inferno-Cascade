@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterJet
       objectReference: {fileID: 0}
+    - target: {fileID: 4994679970158698190, guid: 288947cc72745461f970e776a6e294f7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6390370493749208299, guid: 288947cc72745461f970e776a6e294f7, type: 3}
       propertyPath: radius
       value: 1
