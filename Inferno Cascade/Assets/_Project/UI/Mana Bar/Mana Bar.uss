@@ -1,0 +1,51 @@
+VisualElement 
+{
+
+}
+
+.container 
+{
+	flex-direction: column-reverse;
+	flex: 1;
+	padding: 4.5%;
+}
+
+.fire_mana
+{
+	width: 35%;
+	position: relative;
+	left: 60%;
+}
+
+.water_mana
+{
+	width: 35%;
+	position: relative;
+	left: 5%;
+}
+
+.unity-progress-bar__background
+{
+	min-height: 40px;
+	max-height: 40px;
+	height: 40px;
+	border-radius: 10px;
+	border-width: 3px;
+	border-color: #0A0A0A;
+	background-color: #050505;
+}
+
+.unity-progress-bar__progress
+{
+	border-radius: 5px;
+}
+
+.water_mana .unity-progress-bar__progress
+{
+	background-color: aqua;
+}
+
+.fire_mana .unity-progress-bar__progress
+{
+	background-color: orange;
+}

@@ -130,7 +130,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3715420589143746092}
-  - {fileID: 3798677959187538946}
   - {fileID: 4574934866691851868}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -219,7 +218,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
-  orientation: {fileID: 3798677959187538946}
+  orientation: {fileID: 0}
 --- !u!114 &3599346450684544925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +235,8 @@ MonoBehaviour:
   useWaterSpellInput: {fileID: 11400000, guid: 7da63a9de09f0eb47a204b3cab91a210, type: 2}
   cycleFireSpellInput: {fileID: 11400000, guid: 92f718adafdb43e4fa9d930491237f11, type: 2}
   useFireSpellInput: {fileID: 11400000, guid: 64fa71da35ecd1743895cce6ca42a1df, type: 2}
+  WaterManaGainPerSecond: 5
+  FireManaGainPerSecond: 5
 --- !u!114 &7204516045513191391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,34 +409,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5952360550357367825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3798677959187538946}
-  m_Layer: 3
-  m_Name: Orientation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3798677959187538946
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5952360550357367825}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7135602552605431660}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

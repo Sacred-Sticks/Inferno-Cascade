@@ -18,6 +18,8 @@ namespace Inferno_Cascade
         {
 
         }
+
+        public float ManaCost { get; }
     }
 
     public class ExampleSpell : ISpell
@@ -44,19 +46,21 @@ namespace Inferno_Cascade
             // Only implement EndSpell if you need to do something when the spell ends
             Debug.Log($"{Name} Ended");
         }
+
+        public float ManaCost => 10;
     }
 
     public class ProjectileSpell : ISpell
     {
-        public ProjectileSpell(string pathway)
+        public ProjectileSpell(string pathway, float manaCost)
         {
             this.pathway = pathway;
+            ManaCost = manaCost;
         }
 
         private static float offsetAmount = 0.5f;
         private static float verticalOffset = 0.125f;
         private string pathway { get; }
-
 
         public void BeginSpell()
         {
@@ -65,6 +69,8 @@ namespace Inferno_Cascade
             GameObject fb = Resources.Load<GameObject>(pathway);
             UnityEngine.Object.Instantiate(fb, camTran.position + oofset, camTran.rotation);
         }
+
+        public float ManaCost { get; }
     }
 
     public class HealSpell : ISpell
@@ -74,10 +80,11 @@ namespace Inferno_Cascade
 
         private bool canHeal;
 
-        public HealSpell(float healAmount, float healCooldown)
+        public HealSpell(float healAmount, float healCooldown, float manaCost)
         {
             this.healAmount = healAmount;
             this.healCooldown = healCooldown;
+            ManaCost = manaCost;
         }
 
         public void BeginSpell()
@@ -90,6 +97,8 @@ namespace Inferno_Cascade
         {
             canHeal = false;
         }
+
+        public float ManaCost { get; }
 
         private async void Heal(Health health)
         {
