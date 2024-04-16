@@ -13,11 +13,13 @@ namespace Inferno_Cascade
         [SerializeField] private Sensor attackSensor;
 
         private Health health;
+        private AnimationController animationController;
 
         #region UnityEvents
         protected override void Start()
         {
             health = GetComponent<Health>();
+            animationController = GetComponent<AnimationController>();
             base.Start();
         }
 
@@ -57,24 +59,24 @@ namespace Inferno_Cascade
             actions = new HashSet<AgentAction>();
 
             actions.Add(new AgentAction.Builder("No Movement")
-                .WithStrategy(new IdleStrategy(5))
+                .WithStrategy(new IdleStrategy(5, animationController))
                 .AddEffect(beliefs["Nothing"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("Move to random point within a radius")
-                .WithStrategy(new WanderStrategy(navMeshAgent, 10))
+                .WithStrategy(new WanderStrategy(navMeshAgent, 10, animationController))
                 .WithCost(2)
                 .AddEffect(beliefs["AgentMoving"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("Chase after Player")
-                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["PlayerInChaseRange"].Location))
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["PlayerInChaseRange"].Location, animationController))
                 .AddPrecondition(beliefs["PlayerInChaseRange"])
                 .AddEffect(beliefs["PlayerInAttackRange"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("Attack Player")
-                .WithStrategy(new AttackStrategy(() => attackSensor.Target))
+                .WithStrategy(new AttackStrategy(() => attackSensor.Target, animationController))
                 .AddPrecondition(beliefs["PlayerInAttackRange"])
                 .AddEffect(beliefs["AttackingPlayer"])
                 .Build());

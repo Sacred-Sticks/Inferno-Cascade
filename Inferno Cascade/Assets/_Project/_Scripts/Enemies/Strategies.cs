@@ -11,16 +11,22 @@ namespace Inferno_Cascade
         public bool Complete { get; private set; }
 
         private CountdownTimer timer;
+        private AnimationController animationController;
 
-        public IdleStrategy(float duration)
+        public IdleStrategy(float duration, AnimationController animationController)
         {
             timer = new CountdownTimer(duration);
             timer.OnTimerStart += () => Complete = false;
             timer.OnTimerStop += () => Complete = true;
+            this.animationController = animationController;
         }
 
         public void Start()
-            => timer.Start();
+        {
+            timer.Start();
+            animationController.Locomotion();
+            animationController.SetDirection(Vector2.zero);
+        }
 
         public void Update(float deltaTime)
             => timer.Tick(deltaTime);
@@ -34,10 +40,13 @@ namespace Inferno_Cascade
         public bool CanPerform => !Complete;
         public bool Complete => agent.remainingDistance <= 2f && !agent.pathPending;
 
-        public WanderStrategy(NavMeshAgent agent, float wanderRadius)
+        private AnimationController animationController;
+
+        public WanderStrategy(NavMeshAgent agent, float wanderRadius, AnimationController animationController)
         {
             this.agent = agent;
             this.wanderRadius = wanderRadius;
+            this.animationController = animationController;
         }
 
         public void Start()
@@ -53,25 +62,34 @@ namespace Inferno_Cascade
                     return;
                 }
             }
+            animationController.Locomotion();
+            animationController.SetDirection(Vector2.zero);
         }
     }
 
     public class MoveStrategy : IActionStrategy
     {
         private readonly NavMeshAgent agent;
-        private readonly System.Func<Vector3> destination;
+        private readonly Func<Vector3> destination;
 
         public bool CanPerform => !Complete;
         public bool Complete => agent.remainingDistance <= 2f && !agent.pathPending;
 
-        public MoveStrategy(NavMeshAgent agent, System.Func<Vector3> destination) 
+        private AnimationController animationController;
+
+        public MoveStrategy(NavMeshAgent agent, Func<Vector3> destination, AnimationController animationController) 
         {
             this.agent = agent;
             this.destination = destination;
+            this.animationController = animationController;
         }
 
         public void Start()
-            => agent.SetDestination(destination());
+        {
+            agent.SetDestination(destination());
+            animationController.Locomotion();
+            animationController.SetDirection(new Vector2(0, 1));
+        }
 
         public void Stop()
             => agent.ResetPath();
@@ -88,10 +106,12 @@ namespace Inferno_Cascade
 
         private float damagePerHit = 2;
 
-        public AttackStrategy(Func<GameObject> getTarget)
+        private AnimationController animationController;
+
+        public AttackStrategy(Func<GameObject> getTarget, AnimationController animationController)
         {
             target = getTarget;
-            // Initialize the health component of the target
+            this.animationController = animationController;
         }
 
         private CountdownTimer timer;
@@ -121,6 +141,8 @@ namespace Inferno_Cascade
         private void AttackTarget()
         {
             targetHealth.ChangeHealth(-damagePerHit);
+            animationController.Attack();
+            animationController.SetDirection(Vector2.zero);
         }
     }
 
@@ -137,11 +159,13 @@ namespace Inferno_Cascade
         private float damagePerHit = 10;
 
         private float healthThreshold = 0.25f;
+        private AnimationController animationController;
 
-        public CautiousAttackStrategy(Func<GameObject> getTarget, Health agentHealth)
+        public CautiousAttackStrategy(Func<GameObject> getTarget, Health agentHealth, AnimationController animationController)
         {
             target = getTarget;
             this.agentHealth = agentHealth;
+            this.animationController = animationController;
         }
 
         private CountdownTimer timer;
@@ -171,6 +195,8 @@ namespace Inferno_Cascade
         private void AttackTarget()
         {
             targetHealth.ChangeHealth(-damagePerHit);
+            animationController.Attack();
+            animationController.SetDirection(Vector2.zero);
         }
     }
 
@@ -185,10 +211,12 @@ namespace Inferno_Cascade
 
         private float healthyThreshold = 0.75f;
         private float healAmount = 5;
+        private AnimationController animationController;
 
-        public HealStrategy(Func<GameObject> getTarget)
+        public HealStrategy(Func<GameObject> getTarget, AnimationController animationController)
         {
             target = getTarget;
+            this.animationController = animationController;
         }
 
         private CountdownTimer timer;
@@ -219,6 +247,8 @@ namespace Inferno_Cascade
         private void HealTarget()
         {
             targetHealth.ChangeHealth(healAmount);
+            animationController.Attack();
+            animationController.SetDirection(Vector2.zero);
         }
     }
 }

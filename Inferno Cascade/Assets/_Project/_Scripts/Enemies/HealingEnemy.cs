@@ -13,12 +13,13 @@ namespace Inferno_Cascade
         public List<Transform> SafePositions { get; } = new List<Transform>();
 
         private Health health;
+        private AnimationController animationController;
 
         #region UnityEvents
         protected override void Start()
         {
             health = GetComponent<Health>();
-
+            animationController = GetComponent<AnimationController>();
             base.Start();
         }
 
@@ -54,23 +55,23 @@ namespace Inferno_Cascade
             actions = new HashSet<AgentAction>();
 
             actions.Add(new AgentAction.Builder("No Movement")
-                .WithStrategy(new IdleStrategy(5))
+                .WithStrategy(new IdleStrategy(5, animationController))
                 .AddEffect(beliefs["Nothing"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("Go To Safety")
-                .WithStrategy(new MoveStrategy(navMeshAgent, () => SafePositions[Random.Range(0, SafePositions.Count)].position))
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => SafePositions[Random.Range(0, SafePositions.Count)].position, animationController))
                 .AddEffect(beliefs["SafeFromHarm"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("Chase after Enemy")
-                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["EnemyInChaseRange"].Location))
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["EnemyInChaseRange"].Location, animationController))
                 .AddPrecondition(beliefs["EnemyInChaseRange"])
                 .AddEffect(beliefs["EnemyInHealRange"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("Heal Enemy")
-                .WithStrategy(new HealStrategy(() => healSensor.Target))
+                .WithStrategy(new HealStrategy(() => healSensor.Target, animationController))
                 .AddPrecondition(beliefs["EnemyInHealRange"])
                 .AddEffect(beliefs["HealingEnemy"])
                 .Build());

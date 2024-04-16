@@ -18,7 +18,6 @@ namespace Inferno_Cascade
         public float jumpForce;
         public float jumpCooldown;
         public float airMultiplier;
-        bool readyToJump;
 
 
         [Header("Ground Check")]
@@ -57,10 +56,7 @@ namespace Inferno_Cascade
         {
             if (input == 0)
                 return;
-
-            readyToJump = false;
             Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
         }
         #endregion
 
@@ -131,11 +127,6 @@ namespace Inferno_Cascade
 
             rb.AddForce(transform.up * jumpForce - rb.velocity.y * Vector3.up, ForceMode.VelocityChange);
             animationController.Jump();
-        }
-
-        public void ResetJump()
-        {
-            readyToJump = true;
         }
 
         #region Notifications

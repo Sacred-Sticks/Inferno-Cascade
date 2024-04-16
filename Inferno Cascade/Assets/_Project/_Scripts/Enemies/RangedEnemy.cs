@@ -11,11 +11,13 @@ namespace Inferno_Cascade
         [SerializeField] private Sensor chaseSensor;
 
         private Health health;
+        private AnimationController animationController;
 
         #region UnityEvents
         protected override void Start()
         {
             health = GetComponent<Health>();
+            animationController = GetComponent<AnimationController>();
             base.Start();
         }
 
@@ -54,25 +56,25 @@ namespace Inferno_Cascade
             actions = new HashSet<AgentAction>();
 
             actions.Add(new AgentAction.Builder("Relax")
-                    .WithStrategy(new IdleStrategy(3))
+                    .WithStrategy(new IdleStrategy(3, animationController))
                     .AddEffect(beliefs["Nothing"])
                     .Build());
 
             actions.Add(new AgentAction.Builder("Wander")
-                    .WithStrategy(new WanderStrategy(navMeshAgent, 10))
+                    .WithStrategy(new WanderStrategy(navMeshAgent, 10, animationController))
                     .WithCost(2)
                     .AddEffect(beliefs["AgentMoving"])
                     .Build());
 
             actions.Add(new AgentAction.Builder("ChasePlayer")
-                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["PlayerInChaseRange"].Location))
+                .WithStrategy(new MoveStrategy(navMeshAgent, () => beliefs["PlayerInChaseRange"].Location, animationController))
                 .AddPrecondition(beliefs["PlayerInChaseRange"])
                 .AddPrecondition(beliefs["NotHurt"])
                 .AddEffect(beliefs["PlayerInAttackRange"])
                 .Build());
 
             actions.Add(new AgentAction.Builder("AttackPlayer")
-                .WithStrategy(new CautiousAttackStrategy(() => attackSensor.Target, health))
+                .WithStrategy(new CautiousAttackStrategy(() => attackSensor.Target, health, animationController))
                 .AddPrecondition(beliefs["PlayerInAttackRange"])
                 .AddPrecondition(beliefs["NotHurt"])
                 .AddEffect(beliefs["AttackingPlayer"])

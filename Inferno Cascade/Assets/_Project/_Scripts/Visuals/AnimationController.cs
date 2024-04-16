@@ -18,9 +18,13 @@ namespace Inferno_Cascade
         private const float transitionDuration = 0.25f;
 
         #region UnityEvents
-        private void Start()
+        private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
+        }
+
+        private void Start()
+        {
             GetComponent<PlayerMovement>()?.AddObserver(this);
         }
         #endregion
@@ -38,6 +42,12 @@ namespace Inferno_Cascade
         public void Jump()
         {
             animator.Play(jump, 0, transitionDuration);
+        }
+
+        public void SetDirection(Vector2 direction)
+        {
+            animator.SetFloat(velocityX, direction.x);
+            animator.SetFloat(velocityY, direction.y);
         }
 
         private IEnumerator Attacking()
