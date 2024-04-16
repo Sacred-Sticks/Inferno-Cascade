@@ -17,7 +17,7 @@ VisualElement
 	color: #F03030;
 }
 
-.main_menu_button 
+.menu_button 
 {
 	border-width: 5px;
 	border-color: #666666;
@@ -27,11 +27,17 @@ VisualElement
 	font-size: 50px;
 	width: 22.5%;
 	transition-duration: 0.5s;
+	margin-bottom: 80px;
 }
 
-.main_menu_button:hover
+.menu_button:hover
 {
 	background-color: #602020;
 	border-radius: 40px;
 	color: #200505;
+}
+
+.quit_button
+{
+	width: 11.25% !important;
 }

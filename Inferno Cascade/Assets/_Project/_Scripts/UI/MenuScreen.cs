@@ -40,7 +40,7 @@ namespace Inferno_Cascade
 
             var container = root.CreateChild<VisualElement>("container");
             container.CreateChild<Label>("win_label").text = labelText;
-            var button = container.CreateChild<Button>("main_menu_button");
+            var button = container.CreateChild<Button>("menu_button");
             button.text = buttonText;
             System.Action action = buttonType switch
             {
@@ -49,7 +49,10 @@ namespace Inferno_Cascade
                 _ => null
             };
             button.clickable.clicked += action;
-            ;
+
+            var quitButton = container.CreateChild<Button>("menu_button", "quit_button");
+            quitButton.text = "Quit";
+            quitButton.clickable.clicked += Application.Quit;
         }
 
         private enum ButtonType
