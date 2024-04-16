@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 7204516045513191391}
   - component: {fileID: 4442599781125231024}
   - component: {fileID: 3917893425152635596}
+  - component: {fileID: -1019417263177258765}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -217,6 +218,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee891e75631744b4e8b3e34bde58136c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1019417263177258765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713745608548532428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddd230a81ca3ec42ac816ebdaa00bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5739957398838798535
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +327,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9547916, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d4ffc23e2e8fc4c47b3ff26264a8c5ed, type: 2}
+    - target: {fileID: 9547916, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

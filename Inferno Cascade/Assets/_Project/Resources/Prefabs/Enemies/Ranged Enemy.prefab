@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2110736039655365866}
   - component: {fileID: 5030658443286568036}
   - component: {fileID: 6668343915738675694}
+  - component: {fileID: 789581337029008142}
   m_Layer: 0
   m_Name: Ranged Enemy
   m_TagString: Enemy
@@ -139,6 +140,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07a65912d171345fcab12b460a656e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &789581337029008142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5564054766005843854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddd230a81ca3ec42ac816ebdaa00bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7015186262696460371
@@ -329,6 +342,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 471940, guid: 10f9cee6cfdd7df43a5d805acd44763f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9588672, guid: 10f9cee6cfdd7df43a5d805acd44763f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d4ffc23e2e8fc4c47b3ff26264a8c5ed, type: 2}
+    - target: {fileID: 9588672, guid: 10f9cee6cfdd7df43a5d805acd44763f, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

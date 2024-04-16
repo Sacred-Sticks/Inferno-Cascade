@@ -45,6 +45,8 @@ namespace Inferno_Cascade
         private int waterSpellIndex;
         private int fireSpellIndex;
 
+        private AnimationController animationController;
+
         #region UnityEvents
         private void Start()
         {
@@ -62,6 +64,7 @@ namespace Inferno_Cascade
             };
             fireSpellCount = fireSpells.Length;
             fireSpellIndex = 0;
+            animationController = GetComponent<AnimationController>();
         }
 
         private void Update()
@@ -118,6 +121,7 @@ namespace Inferno_Cascade
                         return;
                     spell.BeginSpell();
                     AdjustMana(SpellType.Water, -spell.ManaCost);
+                    animationController.Attack();
                     break;
                 case 0:
                     spell.EndSpell();
@@ -135,6 +139,7 @@ namespace Inferno_Cascade
                         return;
                     spell.BeginSpell();
                     AdjustMana(SpellType.Fire, -spell.ManaCost);
+                    animationController.Attack();
                     break;
                 case 0:
                     spell.EndSpell();

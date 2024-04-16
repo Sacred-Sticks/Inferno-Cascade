@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1919553599087823171}
   - component: {fileID: -3596084440584325319}
   - component: {fileID: -5189867519962728852}
+  - component: {fileID: -2789421630224130761}
   m_Layer: 0
   m_Name: Charging Enemy
   m_TagString: Enemy
@@ -139,6 +140,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07a65912d171345fcab12b460a656e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2789421630224130761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992015991878068623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddd230a81ca3ec42ac816ebdaa00bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4947278724263249348
@@ -329,6 +342,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 407186, guid: 8cd752dc36d412b4bba2efd06775153a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9505110, guid: 8cd752dc36d412b4bba2efd06775153a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d4ffc23e2e8fc4c47b3ff26264a8c5ed, type: 2}
+    - target: {fileID: 9505110, guid: 8cd752dc36d412b4bba2efd06775153a, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

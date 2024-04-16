@@ -1,11 +1,10 @@
 using Kickstarter.Inputs;
-using System.Collections;
-using System.Collections.Generic;
+using Kickstarter.Observer;
 using UnityEngine;
 
 namespace Inferno_Cascade
 {
-    public class PlayerMovement : MonoBehaviour, IInputReceiver
+    public class PlayerMovement : Observable, IInputReceiver
     {
         [Header("Inputs")]
         [SerializeField] private Vector2Input movementInput;
@@ -31,6 +30,7 @@ namespace Inferno_Cascade
 
         Vector3 moveDirection;
 
+        private AnimationController animationController;
         Rigidbody rb;
 
         #region InputHandler
@@ -50,6 +50,7 @@ namespace Inferno_Cascade
         {
             horizontalInput = input.x;
             verticalInput = input.y;
+            NotifyObservers(new PlayerMovementNotification(input));
         }
 
         private void OnJumpInputChange(float input)
@@ -69,14 +70,20 @@ namespace Inferno_Cascade
             rb.freezeRotation = true;
 
             Registry.Register(RegistryStrings.PlayerRigidbody, rb);
+            animationController = GetComponent<AnimationController>();
         }
 
         private void Update()
         {
             //ground check
             float range = 1.1f;
+            bool wasGrounded = grounded;
             grounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, range, whatIsGround);
 
+            if (!wasGrounded && grounded)
+            {
+                animationController.Locomotion();
+            }
             //handle drag
             if (grounded)
                 rb.drag = groundrag;
@@ -123,12 +130,25 @@ namespace Inferno_Cascade
             //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
             rb.AddForce(transform.up * jumpForce - rb.velocity.y * Vector3.up, ForceMode.VelocityChange);
+            animationController.Jump();
         }
 
         public void ResetJump()
         {
             readyToJump = true;
         }
+
+        #region Notifications
+        public struct PlayerMovementNotification : INotification
+        {
+            public PlayerMovementNotification(Vector2 localDirection)
+            {
+                Direction = localDirection;
+            }   
+
+            public Vector2 Direction { get; }
+        }
+        #endregion
     }
 
 }
