@@ -26,8 +26,6 @@ namespace Inferno_Cascade
         public LayerMask whatIsGround;
         bool grounded;
 
-        public Transform orientation;
-
         float horizontalInput;
         float verticalInput;
 
@@ -94,7 +92,7 @@ namespace Inferno_Cascade
         private void MovePlayer()
         {
             // calculate movement direction
-            moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+            moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
 
             // rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             if (rb.velocity.sqrMagnitude > moveSpeed * moveSpeed)

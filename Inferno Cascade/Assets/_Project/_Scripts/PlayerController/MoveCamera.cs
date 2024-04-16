@@ -1,7 +1,4 @@
 using Kickstarter.Inputs;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
 
@@ -12,7 +9,7 @@ public class MoveCamera : MonoBehaviour, IInputReceiver
 
     Vector2 rawInput;
 
-    private void Update()
+    private void FixedUpdate()
     {
         RotatePlayer();
         RotateCamera();
@@ -36,10 +33,15 @@ public class MoveCamera : MonoBehaviour, IInputReceiver
 
         float rotation = transform.rotation.eulerAngles.x;
         rotation -= rawInput.y * mouseSensitivity;
+        if (rotation > 180)
+            rotation -= 360;
+        rotation = Mathf.Clamp(rotation, -89, 89);
+
 
         transform.localRotation = Quaternion.Euler(new Vector3(rotation, 0, 0));
     }
 
+    #region InputHandler
     public void RegisterInputs(Player.PlayerIdentifier playerIdentifier)
     {
         rotationInput.RegisterInput(OnRotationInputChange, playerIdentifier);
@@ -54,6 +56,7 @@ public class MoveCamera : MonoBehaviour, IInputReceiver
     {
         rawInput = input;
     }
+    #endregion
 
     private void OnEnable()
     {
