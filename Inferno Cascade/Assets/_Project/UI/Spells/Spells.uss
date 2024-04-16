@@ -1,37 +1,37 @@
-VisualElement 
-{
-
+VisualElement {
 }
 
-.root
-{
-	flex-direction: row;
-	flex: 1;
-	padding-top: 700px;
-	justify-content: space-around;
+.root {
+    flex-direction: row;
+    flex: 1;
+    padding-top: 700px;
+    justify-content: space-around;
 }
 
-.container:
-{
-	flex-direction: row;
-	justify-content: space-around;
-	width: 500px;
+.container {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 500px;
 }
 
-.spell
-{
-	background-color: rgba(0, 0, 0, 0.25);
-	width: 200px;
-	height: 200px;
-	margin: 20px;
-	border-radius: 60px;
-	border-width: 10px;
-	border-color: rgba(25, 25, 25, 1);
-	transition-duration: 0.0625s;
+.spell {
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    border-radius: 60px;
+    border-width: 10px;
+    border-color: rgb(25, 25, 25);
+    transition-duration: 0.0625s;
+    background-image-tint-color: black;
 }
 
-.selected
-{
-	border-radius: 75px;
-	background-color: rgba(125, 0, 0, 0.5);
+.selected_fire {
+    border-radius: 75px;
+    background-color: rgba(125, 0, 0, 0.5);
+}
+
+.selected_water {
+    border-radius: 75px;
+    background-color: rgba(0, 0, 125, 0.5);
 }

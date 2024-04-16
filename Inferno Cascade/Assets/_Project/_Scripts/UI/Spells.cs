@@ -48,11 +48,11 @@ namespace Inferno_Cascade
             root.AddToClassList("root");
 
             var waterContainer = root.CreateChild<VisualElement>("container");
-            waterSpells[0] = waterContainer.CreateChild<VisualElement>("water_jet", "spell", "selected");
+            waterSpells[0] = waterContainer.CreateChild<VisualElement>("water_jet", "spell", "selected_water");
             waterSpells[1] = waterContainer.CreateChild<VisualElement>("water_heal", "spell");
 
             var fireContainer = root.CreateChild<VisualElement>("container");
-            fireSpells[0] = fireContainer.CreateChild<VisualElement>("fire_ball", "spell", "selected");
+            fireSpells[0] = fireContainer.CreateChild<VisualElement>("fire_ball", "spell", "selected_fire");
             fireSpells[1] = fireContainer.CreateChild<VisualElement>("fire_javelin", "spell");
 
             for (int i = 0; i < fireSpells.Length; i++)
@@ -65,14 +65,24 @@ namespace Inferno_Cascade
         #region Notifications
         public void OnNotify(SpellManager.CycleNotification argument)
         {
-            var spells = argument.SpellType switch
+            VisualElement[] spells;
+            string selected;
+            switch (argument.SpellType)
             {
-                SpellManager.SpellType.Water => waterSpells,
-                SpellManager.SpellType.Fire => fireSpells,
-                _ => throw new System.NotImplementedException()
-            };
-            spells[argument.SpellIndex].AddToClassList("selected");
-            spells[(argument.SpellIndex + 1) % 2].RemoveFromClassList("selected");
+
+                case SpellManager.SpellType.Water:
+                    spells = waterSpells;
+                    selected = "selected_water";
+                    break;
+                case SpellManager.SpellType.Fire:
+                    spells = fireSpells;
+                    selected = "selected_fire";
+                    break;
+                default:
+                    throw new System.NotImplementedException();
+            }
+            spells[argument.SpellIndex].AddToClassList(selected);
+            spells[(argument.SpellIndex + 1) % 2].RemoveFromClassList(selected);
         }
         #endregion
     }
