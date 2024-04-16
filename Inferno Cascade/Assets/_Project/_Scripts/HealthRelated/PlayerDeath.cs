@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using Kickstarter.Bootstrapper;
+using Kickstarter.DependencyInjection;
 using UnityEngine;
 
 namespace Inferno_Cascade
 {
     public class PlayerDeath : MonoBehaviour, IOnDeath
     {
+        [Inject] private SceneLoader sceneLoader;
+
         public void OnDeath()
         {
-            //put up loss screen
-            Debug.Log("you lost bitch");
+            sceneLoader.LoadSceneGroup("Lose");
         }
     }
 }

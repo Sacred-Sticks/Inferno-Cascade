@@ -1,0 +1,37 @@
+VisualElement 
+{
+
+}
+
+.container
+{
+	background-color: #0F0F0F;
+	align-items: center;
+	flex: 1;
+}
+
+.win_label 
+{
+	margin: 10%;
+	font-size: 200px;
+	color: #F03030;
+}
+
+.main_menu_button 
+{
+	border-width: 5px;
+	border-color: #666666;
+	border-radius: 20px;
+	background-color: #AF2F2F;
+	color: #602020;
+	font-size: 50px;
+	width: 22.5%;
+	transition-duration: 0.5s;
+}
+
+.main_menu_button:hover
+{
+	background-color: #602020;
+	border-radius: 40px;
+	color: #200505;
+}

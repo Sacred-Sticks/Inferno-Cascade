@@ -60,12 +60,20 @@ namespace Inferno_Cascade
         }
         #endregion
 
-        private void Start()
+        private void OnEnable()
         {
             rb = GetComponent<Rigidbody>();
-            rb.freezeRotation = true;
-
             Registry.Register(RegistryStrings.PlayerRigidbody, rb);
+        }
+
+        private void OnDisable()
+        {
+            Registry.Deregister(RegistryStrings.PlayerRigidbody);
+        }
+
+        private void Start()
+        {
+            rb.freezeRotation = true;
             animationController = GetComponent<AnimationController>();
         }
 

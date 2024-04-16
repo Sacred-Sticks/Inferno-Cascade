@@ -1,3 +1,5 @@
+using Kickstarter.Bootstrapper;
+using Kickstarter.DependencyInjection;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +7,8 @@ namespace Inferno_Cascade
 {
     public class Spawner : MonoBehaviour
     {
+        [Inject] private SceneLoader sceneLoader;
+
         [SerializeField] private GameObject[] enemies;
         [SerializeField] private Transform[] transforms;
 
@@ -36,6 +40,7 @@ namespace Inferno_Cascade
                 var go = Instantiate(enemies[Random.Range(0, enemies.Length)], transform.position, transform.rotation, transform);
                 go.transform.parent = null;
                 go.GetComponent<HealingEnemy>()?.SafePositions.AddRange(transforms);
+                go.GetComponent<EnemyDeath>().sceneLoader = sceneLoader;
                 yield return delay;
             }
         }
